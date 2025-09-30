@@ -15,6 +15,16 @@ apt install -y --no-install-recommends \
   arc-theme fonts-ubuntu fonts-hack \
   git curl wget unzip btop lm-sensors suckless-tools
 
+# Install bluetui (prebuilt binary)
+BLUETUI_URL="https://github.com/pythops/bluetui/releases/download/v0.6/bluetui-x86_64-linux-gnu"
+TMPDIR=$(mktemp -d)
+cd "$TMPDIR"
+wget -qO bluetui.tar.gz "$BLUETUI_URL"
+tar -xzf bluetui.tar.gz
+install -m 755 bluetui /usr/local/bin/bluetui
+cd - >/dev/null
+rm -rf "$TMPDIR"
+
 usermod -aG libvirt,kvm "$SUDO_USER" || true
 loginctl enable-linger "$SUDO_USER" || true
 
