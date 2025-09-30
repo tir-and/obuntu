@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openbox_config xmlns="http://openbox.org/3.4/rc" xmlns:xi="http://www.w3.org/2001/XInclude">
+
   <theme>
     <name>Arc-Dark</name>
     <titleLayout>NLIMC</titleLayout>
@@ -8,7 +9,12 @@
 
   <desktops>
     <number>4</number>
-    <names><name>1</name><name>2</name><name>3</name><name>4</name></names>
+    <names>
+      <name>1</name>
+      <name>2</name>
+      <name>3</name>
+      <name>4</name>
+    </names>
     <popupTime>0</popupTime>
   </desktops>
 
@@ -20,9 +26,13 @@
     <raiseOnFocus>no</raiseOnFocus>
   </focus>
 
-  <placement><policy>Smart</policy></placement>
+  <placement>
+    <policy>Smart</policy>
+  </placement>
 
-  <resize><popupShow>Nonpixel</popupShow></resize>
+  <resize>
+    <popupShow>Nonpixel</popupShow>
+  </resize>
 
   <keyboard>
     <!-- Win+Enter: terminal -->
@@ -42,7 +52,7 @@
         <command>scrot -q 100 ~/screenshot_%Y-%m-%d_%H-%M-%S.png</command>
       </action>
     </keybind>
-    <!-- Win+1 / Win+2: resolutions (requires our res scripts in PATH) -->
+    <!-- Win+1 / Win+2: resolutions -->
     <keybind key="W-1">
       <action name="Execute"><command>res-1920x1080</command></action>
     </keybind>
@@ -59,54 +69,63 @@
     </keybind>
   </keyboard>
 
-<mouse>
-  <dragThreshold>1</dragThreshold>
-  <doubleClickTime>500</doubleClickTime>
-  <screenEdgeWarpTime>400</screenEdgeWarpTime>
-  <!-- Root window (desktop) menus/buttons -->
-  <context name="Root">
-    <mousebind button="Right" action="Press">
-      <action name="ShowMenu"><menu>root-menu</menu></action>
-    </mousebind>
-    <mousebind button="Middle" action="Press">
-      <action name="ShowMenu"><menu>client-list-menu</menu></action>
-    </mousebind>
-  </context>
-  <!-- Titlebar: Move, Maximize, Menu, Minimize -->
-  <context name="Titlebar">
-    <mousebind button="Left" action="Press">
-      <action name="Focus"/>
-      <action name="Raise"/>
-    </mousebind>
-    <mousebind button="Left" action="Drag">
-      <action name="Move"/>
-    </mousebind>
-    <mousebind button="Left" action="Click">
-      <action name="Unshade"/>
-    </mousebind>
-    <mousebind button="Left" action="DoubleClick">
-      <action name="ToggleMaximizeFull"/>
-    </mousebind>
-    <mousebind button="Right" action="Press">
-      <action name="ShowMenu">
-        <menu>client-menu</menu>
-      </action>
-    </mousebind>
-    <mousebind button="Middle" action="Click">
-      <action name="Iconify"/>
-    </mousebind>
-  </context>
-  <!-- Frame: Resize via borders only -->
-  <context name="Frame">
-    <mousebind button="Left" action="Drag">
-      <action name="Resize"/>
-    </mousebind>
-  </context>
-</mouse>
+  <mouse>
+    <dragThreshold>1</dragThreshold>
+    <doubleClickTime>500</doubleClickTime>
+    <screenEdgeWarpTime>400</screenEdgeWarpTime>
+
+    <!-- Root window (desktop) menus -->
+    <context name="Root">
+      <mousebind button="Right" action="Press">
+        <action name="ShowMenu"><menu>root-menu</menu></action>
+      </mousebind>
+      <mousebind button="Middle" action="Press">
+        <action name="ShowMenu"><menu>client-list-menu</menu></action>
+      </mousebind>
+    </context>
+
+    <!-- Titlebar -->
+    <context name="Titlebar">
+      <mousebind button="Left" action="Press">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind button="Left" action="Drag">
+        <action name="Move"/>
+      </mousebind>
+      <mousebind button="Left" action="Click">
+        <action name="Unshade"/>
+      </mousebind>
+      <mousebind button="Left" action="DoubleClick">
+        <action name="ToggleMaximizeFull"/>
+      </mousebind>
+      <mousebind button="Right" action="Click">
+        <action name="ShowMenu"><menu>client-menu</menu></action>
+      </mousebind>
+      <mousebind button="Middle" action="Click">
+        <action name="Iconify"/>
+      </mousebind>
+    </context>
+
+    <!-- Window frame / borders -->
+    <context name="Frame">
+      <mousebind button="Left" action="Drag"><action name="Move"/></mousebind>
+      <mousebind button="Right" action="Drag"><action name="Resize"/></mousebind>
+    </context>
+
+    <!-- Inside the client: Alt-drag helpers -->
+    <context name="Client">
+      <mousebind button="A-Left" action="Drag"><action name="Move"/></mousebind>
+      <mousebind button="A-Right" action="Drag"><action name="Resize"/></mousebind>
+      <!-- Optional: Alt+Middle lowers window -->
+      <!-- <mousebind button="A-Middle" action="Click"><action name="Lower"/></mousebind> -->
+    </context>
+  </mouse>
 
   <menu>
     <!-- IMPORTANT: point to your menu.xml -->
     <file>menu.xml</file>
     <applicationIcons>no</applicationIcons>
   </menu>
+
 </openbox_config>
