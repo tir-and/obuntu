@@ -6,7 +6,8 @@ Includes PipeWire audio, Bluetooth (`bluetui`), Arc-Dark theme, Ubuntu UI font, 
 ## 🚀 Scripts
 
 ### host/setup-host.sh
-Run as root. Installs:
+Run as root. Don'd forget to make it executable with sudo chmod +x .
+Installs:
 - QEMU/KVM, libvirt, virt-manager, OVMF
 - Openbox, Xorg, xterm, Arc-Dark theme, Ubuntu & Hack fonts
 - PipeWire, WirePlumber, ALSA, Bluetooth (bluetui)
