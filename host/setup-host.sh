@@ -8,12 +8,12 @@ fi
 
 apt update
 apt install -y --no-install-recommends \
-  qemu-kvm libvirt-daemon-system virt-manager ovmf bridge-utils pciutils \
+  qemu-system-x86 qemu-utils libvirt-daemon-system virt-manager ovmf bridge-utils pciutils \
   xorg openbox obconf xterm xinit x11-xserver-utils \
   pipewire wireplumber pipewire-audio-client-libraries \
   alsa-utils bluez bluetui \
   arc-theme fonts-ubuntu fonts-hack \
-  git curl wget unzip btop lm-sensors slock
+  git curl wget unzip btop lm-sensors suckless-tools
 
 usermod -aG libvirt,kvm "$SUDO_USER" || true
 loginctl enable-linger "$SUDO_USER" || true
