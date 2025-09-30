@@ -24,6 +24,18 @@ echo "sudo mkdir -p /etc/systemd/logind.conf.d"
 echo "sudo cp -v $REPO_DIR/host/configs/systemd-logind/idle.conf /etc/systemd/logind.conf.d/idle.conf"
 echo "sudo systemctl restart systemd-logind"
 
+# --- Install Arc Openbox theme system-wide if missing ---
+if [ ! -d /usr/share/themes/Arc-Dark/openbox-3 ]; then
+  echo "[*] Arc Openbox theme not found. Installing (requires sudo)..."
+  sudo apt-get update
+  sudo apt-get install -y git unzip >/dev/null
+
+  tmpdir="$(mktemp -d)"
+  git clone https://github.com/dglava/arc-openbox.git "$tmpdir/arc-openbox"
+  sudo mkdir -p /usr/share/themes
+  sudo cp -r "$tmpdir/arc-openbox"/Arc* /usr/share/themes/
+  rm -rf "$tmpdir"
+
 if pgrep -x openbox >/dev/null 2>&1; then
   echo "Reloading Openbox..."
   openbox --reconfigure || true
