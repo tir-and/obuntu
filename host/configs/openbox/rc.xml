@@ -1,1 +1,86 @@
-<openbox_config><theme><name>Arc-Dark</name></theme></openbox_config>
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_config xmlns="http://openbox.org/3.4/rc" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <theme>
+    <name>Arc-Dark</name>
+    <titleLayout>NLIMC</titleLayout>
+    <keepBorder>yes</keepBorder>
+  </theme>
+
+  <desktops>
+    <number>4</number>
+    <names><name>1</name><name>2</name><name>3</name><name>4</name></names>
+    <popupTime>0</popupTime>
+  </desktops>
+
+  <focus>
+    <focusNew>yes</focusNew>
+    <followMouse>no</followMouse>
+    <focusLast>yes</focusLast>
+    <underMouse>no</underMouse>
+    <raiseOnFocus>no</raiseOnFocus>
+  </focus>
+
+  <placement><policy>Smart</policy></placement>
+
+  <resize><popupShow>Nonpixel</popupShow></resize>
+
+  <keyboard>
+    <!-- Win+Enter: terminal -->
+    <keybind key="W-Return">
+      <action name="Execute"><command>xterm</command></action>
+    </keybind>
+    <!-- Win+Q: close -->
+    <keybind key="W-q"><action name="Close"/></keybind>
+    <!-- Win+R: reconfigure -->
+    <keybind key="W-r"><action name="Reconfigure"/></keybind>
+    <!-- Desktops -->
+    <keybind key="W-Left"><action name="DesktopPrevious"/></keybind>
+    <keybind key="W-Right"><action name="DesktopNext"/></keybind>
+    <!-- Print: screenshot full -->
+    <keybind key="Print">
+      <action name="Execute">
+        <command>scrot -q 100 ~/screenshot_%Y-%m-%d_%H-%M-%S.png</command>
+      </action>
+    </keybind>
+    <!-- Win+1 / Win+2: resolutions (requires our res scripts in PATH) -->
+    <keybind key="W-1">
+      <action name="Execute"><command>res-1920x1080</command></action>
+    </keybind>
+    <keybind key="W-2">
+      <action name="Execute"><command>res-3440x1440</command></action>
+    </keybind>
+    <!-- Win+L: lock -->
+    <keybind key="W-l">
+      <action name="Execute"><command>slock</command></action>
+    </keybind>
+    <!-- Win+B: bluetooth tui -->
+    <keybind key="W-b">
+      <action name="Execute"><command>bluetooth-tui</command></action>
+    </keybind>
+  </keyboard>
+
+  <mouse>
+    <dragThreshold>1</dragThreshold>
+    <doubleClickTime>500</doubleClickTime>
+    <screenEdgeWarpTime>400</screenEdgeWarpTime>
+
+    <!-- Root window (desktop) menus/buttons -->
+    <context name="Root">
+      <!-- Right click = root menu -->
+      <mousebind button="Right" action="Press">
+        <action name="ShowMenu"><menu>root-menu</menu></action>
+      </mousebind>
+      <!-- Middle click = client list -->
+      <mousebind button="Middle" action="Press">
+        <action name="ShowMenu"><menu>client-list-menu</menu></action>
+      </mousebind>
+      <!-- Left click = do nothing -->
+    </context>
+  </mouse>
+
+  <menu>
+    <!-- IMPORTANT: point to your menu.xml -->
+    <file>menu.xml</file>
+    <applicationIcons>no</applicationIcons>
+  </menu>
+</openbox_config>
