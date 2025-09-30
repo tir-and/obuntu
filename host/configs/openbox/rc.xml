@@ -65,50 +65,40 @@
   <screenEdgeWarpTime>400</screenEdgeWarpTime>
   <!-- Root window (desktop) menus/buttons -->
   <context name="Root">
-    <!-- Right click = root menu -->
     <mousebind button="Right" action="Press">
       <action name="ShowMenu"><menu>root-menu</menu></action>
     </mousebind>
-    <!-- Middle click = client list -->
     <mousebind button="Middle" action="Press">
       <action name="ShowMenu"><menu>client-list-menu</menu></action>
     </mousebind>
-    <!-- Left click = do nothing -->
   </context>
-  <!-- Titlebar: Move, Maximize, Menu -->
+  <!-- Titlebar: Move, Maximize, Menu, Minimize -->
   <context name="Titlebar">
     <mousebind button="Left" action="Press">
       <action name="Focus"/>
       <action name="Raise"/>
     </mousebind>
-    <mousebind button="Left" action="Click">
-      <action name="Unshade"/>
-    </mousebind>
     <mousebind button="Left" action="Drag">
       <action name="Move"/>
+    </mousebind>
+    <mousebind button="Left" action="Click">
+      <action name="Unshade"/>
     </mousebind>
     <mousebind button="Left" action="DoubleClick">
       <action name="ToggleMaximizeFull"/>
     </mousebind>
     <mousebind button="Right" action="Press">
-      <action name="Focus"/>
-      <action name="Raise"/>
-    </mousebind>
-    <mousebind button="Right" action="Click">
       <action name="ShowMenu">
         <menu>client-menu</menu>
       </action>
     </mousebind>
-  </context>
-  <!-- Frame: Resize via borders -->
-  <context name="Frame">
-    <mousebind button="Left" action="Drag">
-      <action name="Resize"/>
+    <mousebind button="Middle" action="Click">
+      <action name="Iconify"/>
     </mousebind>
   </context>
-  <!-- Client: Resize via window body -->
-  <context name="Client">
-    <mousebind button="Right" action="Drag">
+  <!-- Frame: Resize via borders only -->
+  <context name="Frame">
+    <mousebind button="Left" action="Drag">
       <action name="Resize"/>
     </mousebind>
   </context>
