@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openbox_config xmlns="http://openbox.org/3.4/rc" xmlns:xi="http://www.w3.org/2001/XInclude">
 
+  <!-- THEME (Arc-Openbox must be installed system-wide) -->
   <theme>
     <name>Arc-Dark</name>
     <titleLayout>NLIMC</titleLayout>
     <keepBorder>yes</keepBorder>
   </theme>
 
+  <!-- WORKSPACES -->
   <desktops>
     <number>4</number>
-    <names>
-      <name>1</name><name>2</name><name>3</name><name>4</name>
-    </names>
+    <names><name>1</name><name>2</name><name>3</name><name>4</name></names>
     <popupTime>0</popupTime>
   </desktops>
 
+  <!-- FOCUS / PLACEMENT / RESIZE UI (defaults retained) -->
   <focus>
     <focusNew>yes</focusNew>
     <followMouse>no</followMouse>
@@ -22,52 +23,48 @@
     <underMouse>no</underMouse>
     <raiseOnFocus>no</raiseOnFocus>
   </focus>
-
   <placement><policy>Smart</policy></placement>
-
   <resize><popupShow>Nonpixel</popupShow></resize>
 
+  <!-- KEYBOARD: your requested changes/additions -->
   <keyboard>
-    <!-- Win+Enter: terminal -->
+    <!-- Ctrl+Super+Left/Right: previous/next desktop (NO WRAP) -->
+    <keybind key="C-W-Left">
+      <action name="DesktopPrevious">
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="C-W-Right">
+      <action name="DesktopNext">
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+
+    <!-- Alt+F4: close focused window -->
+    <keybind key="A-F4">
+      <action name="Close"/>
+    </keybind>
+
+    <!-- PrintScreen: scrot selection (drag to select area) -->
+    <keybind key="Print">
+      <action name="Execute">
+        <command>scrot -s -q 100 ~/screenshot_area_%Y-%m-%d_%H-%M-%S.png</command>
+      </action>
+    </keybind>
+
+    <!-- Win + Return: launch xterm -->
     <keybind key="W-Return">
       <action name="Execute"><command>xterm</command></action>
     </keybind>
-    <!-- Win+Q: close -->
-    <keybind key="W-q"><action name="Close"/></keybind>
-    <!-- Win+R: reconfigure -->
-    <keybind key="W-r"><action name="Reconfigure"/></keybind>
-    <!-- Desktops -->
-    <keybind key="W-Left"><action name="DesktopPrevious"/></keybind>
-    <keybind key="W-Right"><action name="DesktopNext"/></keybind>
-    <!-- Print: screenshot full -->
-    <keybind key="Print">
-      <action name="Execute">
-        <command>scrot -q 100 ~/screenshot_%Y-%m-%d_%H-%M-%S.png</command>
-      </action>
-    </keybind>
-    <!-- Win+1 / Win+2: resolutions -->
-    <keybind key="W-1">
-      <action name="Execute"><command>res-1920x1080</command></action>
-    </keybind>
-    <keybind key="W-2">
-      <action name="Execute"><command>res-3440x1440</command></action>
-    </keybind>
-    <!-- Win+L: lock -->
-    <keybind key="W-l">
-      <action name="Execute"><command>slock</command></action>
-    </keybind>
-    <!-- Win+B: bluetooth tui -->
-    <keybind key="W-b">
-      <action name="Execute"><command>bluetooth-tui</command></action>
-    </keybind>
   </keyboard>
 
+  <!-- MOUSE: keep defaults, but ensure desktop scroll does NOT wrap -->
   <mouse>
     <dragThreshold>1</dragThreshold>
     <doubleClickTime>500</doubleClickTime>
     <screenEdgeWarpTime>400</screenEdgeWarpTime>
 
-    <!-- Desktop menus -->
+    <!-- Desktop (root) default menus -->
     <context name="Root">
       <mousebind button="Right" action="Press">
         <action name="ShowMenu"><menu>root-menu</menu></action>
@@ -75,37 +72,43 @@
       <mousebind button="Middle" action="Press">
         <action name="ShowMenu"><menu>client-list-menu</menu></action>
       </mousebind>
+
+      <!-- Scroll desktops: NO WRAP -->
+      <mousebind button="Up" action="Click">
+        <action name="DesktopPrevious">
+          <wrap>no</wrap>
+        </action>
+      </mousebind>
+      <mousebind button="Down" action="Click">
+        <action name="DesktopNext">
+          <wrap>no</wrap>
+        </action>
+      </mousebind>
     </context>
 
-    <!-- Titlebar actions -->
+    <!-- Titlebar (defaults) -->
     <context name="Titlebar">
-      <mousebind button="Left" action="Press">
-        <action name="Focus"/><action name="Raise"/>
-      </mousebind>
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
       <mousebind button="Left" action="Drag"><action name="Move"/></mousebind>
       <mousebind button="Left" action="DoubleClick"><action name="ToggleMaximizeFull"/></mousebind>
-
-      <!-- Use Press (widely reliable) for the window menu -->
-      <mousebind button="Right" action="Press">
-        <action name="ShowMenu"><menu>client-menu</menu></action>
-      </mousebind>
-
+      <mousebind button="Right" action="Press"><action name="ShowMenu"><menu>client-menu</menu></action></mousebind>
       <mousebind button="Middle" action="Click"><action name="Iconify"/></mousebind>
     </context>
 
-    <!-- Borders/frame -->
+    <!-- Window frame/borders (defaults) -->
     <context name="Frame">
       <mousebind button="Left"  action="Drag"><action name="Move"/></mousebind>
       <mousebind button="Right" action="Drag"><action name="Resize"/></mousebind>
     </context>
 
-    <!-- Inside client: ONLY Alt-drag does move/resize -->
+    <!-- Inside client (defaults): Alt-drag helpers -->
     <context name="Client">
       <mousebind button="A-Left"  action="Drag"><action name="Move"/></mousebind>
       <mousebind button="A-Right" action="Drag"><action name="Resize"/></mousebind>
     </context>
   </mouse>
 
+  <!-- MENU FILE -->
   <menu>
     <file>menu.xml</file>
     <applicationIcons>no</applicationIcons>
