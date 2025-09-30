@@ -58,6 +58,17 @@
     </keybind>
   </keyboard>
 
+   <!-- Super (Win) + Tab: cycle through windows -->
+    <keybind key="W-Tab">
+      <action name="NextWindow">
+        <finalactions>
+          <action name="Raise"/>
+          <action name="Focus"/>
+          <action name="Unshade"/>
+        </finalactions>
+      </action>
+    </keybind>
+  
   <!-- MOUSE: keep defaults, but ensure desktop scroll does NOT wrap -->
   <mouse>
     <dragThreshold>1</dragThreshold>
