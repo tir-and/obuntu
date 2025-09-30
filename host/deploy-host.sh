@@ -17,8 +17,7 @@ cp -v "$REPO_DIR/host/configs/x11/.xinitrc" ~/.xinitrc
 
 echo "Deploying Xresources..."
 xrdb -merge "$REPO_DIR/host/configs/xresources/.Xresources" || true
-mkdir -p ~/.config/xresources
-cp -v "$REPO_DIR/host/configs/xresources/.Xresources" ~/.config/xresources/.Xresources
+cp -v "$REPO_DIR/host/configs/xresources/.Xresources" ~/.Xresources
 
 echo "Idle suspend config available (requires sudo):"
 echo "sudo mkdir -p /etc/systemd/logind.conf.d"
