@@ -51,7 +51,7 @@
       </item>
       <item label="Bluetooth (Bluetui)">
         <!-- wrapper installed as /usr/local/bin/bluetooth-tui; falls back to xterm -e bluetui if you prefer -->
-        <action name="Execute"><command>bluetooth-tui</command></action>
+        <action name="Execute"><command>xterm -e bluetui</command></action>
       </item>
       <item label="Sensors (watch)">
         <action name="Execute"><command>xterm -e watch -n 1 sensors</command></action>
