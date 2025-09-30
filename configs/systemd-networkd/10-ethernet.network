@@ -1,6 +1,0 @@
-# Replace enp3s0 with your actual NIC name (ip link / networkctl list)
-[Match]
-Name=enp3s0
-
-[Network]
-Bridge=br0
