@@ -1,2 +1,55 @@
+! ==== XTerm Basic Settings ====
 XTerm*faceName: Hack
-XTerm*faceSize: 10
+XTerm*faceSize: 12
+XTerm*renderFont: true
+
+! Cursor
+XTerm*cursorBlink: true
+XTerm*cursorColor: #5294e2   ! Arc blue
+
+! Scrollback
+XTerm*saveLines: 10000
+XTerm*scrollBar: false
+XTerm*rightScrollBar: false
+XTerm*scrollTtyOutput: false
+XTerm*scrollKey: true
+
+! UTF-8
+XTerm*utf8: 2
+XTerm*eightBitInput: false
+
+! ==== Arc-Dark Colors ====
+XTerm*background:  #2f343f   ! Arc-Dark bg
+XTerm*foreground:  #d3dae3   ! Light fg text
+
+! Black / Dark gray
+XTerm*color0:  #2f343f
+XTerm*color8:  #4b5162
+
+! Red
+XTerm*color1:  #cc575d
+XTerm*color9:  #e06c75
+
+! Green
+XTerm*color2:  #8ab665
+XTerm*color10: #98c379
+
+! Yellow
+XTerm*color3:  #d7ba7d
+XTerm*color11: #e5c07b
+
+! Blue
+XTerm*color4:  #5294e2
+XTerm*color12: #61afef
+
+! Magenta / Purple
+XTerm*color5:  #b48ead
+XTerm*color13: #c678dd
+
+! Cyan
+XTerm*color6:  #5fb3b3
+XTerm*color14: #56b6c2
+
+! White / Light gray
+XTerm*color7:  #d3dae3
+XTerm*color15: #ffffff
