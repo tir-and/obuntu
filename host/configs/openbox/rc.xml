@@ -7,7 +7,31 @@
     <titleLayout>NLIMC</titleLayout>
     <keepBorder>yes</keepBorder>
     <animateIconify>yes</animateIconify>
-
+    
+<font place="ActiveWindow">
+    <name>Ubuntu Sans</name>
+    <size>11</size>
+    <weight>Bold</weight>
+    <slant>Normal</slant>
+  </font>
+  <font place="InactiveWindow">
+    <name>Ubuntu Sans</name>
+    <size>11</size>
+    <weight>Normal</weight>
+    <slant>Normal</slant>
+  </font>
+  <font place="MenuHeader">
+    <name>Ubuntu Sans</name>
+    <size>11</size>
+    <weight>Normal</weight>
+    <slant>Normal</slant>
+  </font>
+  <font place="MenuItem">
+    <name>Ubuntu Sans</name>
+    <size>12</size>
+    <weight>Normal</weight>
+    <slant>Normal</slant>
+  </font>
   </theme>
 
   <!-- WORKSPACES -->
