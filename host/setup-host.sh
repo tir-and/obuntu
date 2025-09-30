@@ -22,6 +22,21 @@ curl -L -o "$TMPFILE" "$BLUETUI_URL"
 install -m 755 "$TMPFILE" /usr/local/bin/bluetui
 rm -f "$TMPFILE"
 
+echo "[*] Installing Arc Openbox theme system-wide..."
+TMPDIR=$(mktemp -d)
+cd "$TMPDIR"
+
+# grab latest master
+wget -q https://github.com/dglava/arc-openbox/archive/refs/heads/master.zip -O arc-openbox.zip
+unzip -q arc-openbox.zip
+cd arc-openbox-master
+
+# copy theme folders into system themes dir
+sudo mkdir -p /usr/share/themes
+sudo cp -r Arc* /usr/share/themes/
+
+cd /
+rm -rf "$TMPDIR"
 
 usermod -aG libvirt,kvm "$SUDO_USER" || true
 loginctl enable-linger "$SUDO_USER" || true
