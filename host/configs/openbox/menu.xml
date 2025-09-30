@@ -1,1 +1,47 @@
-<openbox_menu><menu id='root-menu' label='Openbox'></menu></openbox_menu>
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_menu xmlns="http://openbox.org/">
+  <menu id="root-menu" label="Openbox 3">
+    <item label="Terminal (xterm)">
+      <action name="Execute"><execute>xterm</execute></action>
+    </item>
+    <item label="Virt-Manager">
+      <action name="Execute"><execute>virt-manager</execute></action>
+    </item>
+    <separator/>
+
+    <menu id="screenshot-menu" label="Screenshots">
+      <item label="Full Screen">
+        <action name="Execute">
+          <execute>scrot ~/screenshot-%Y-%m-%d-%H%M%S.png</execute>
+        </action>
+      </item>
+      <item label="Active Window">
+        <action name="Execute">
+          <execute>scrot -u ~/screenshot-%Y-%m-%d-%H%M%S.png</execute>
+        </action>
+      </item>
+      <item label="Select Area">
+        <action name="Execute">
+          <execute>scrot -s ~/screenshot-%Y-%m-%d-%H%M%S.png</execute>
+        </action>
+      </item>
+    </menu>
+
+    <menu id="resolution-menu" label="Resolution">
+      <item label="1920x1080">
+        <action name="Execute"><execute>res-1920x1080</execute></action>
+      </item>
+      <item label="3440x1440">
+        <action name="Execute"><execute>res-3440x1440</execute></action>
+      </item>
+    </menu>
+
+    <separator/>
+    <item label="Lock Screen">
+      <action name="Execute"><execute>slock</execute></action>
+    </item>
+    <item label="Exit">
+      <action name="Exit"/>
+    </item>
+  </menu>
+</openbox_menu>
