@@ -10,10 +10,7 @@
   <desktops>
     <number>4</number>
     <names>
-      <name>1</name>
-      <name>2</name>
-      <name>3</name>
-      <name>4</name>
+      <name>1</name><name>2</name><name>3</name><name>4</name>
     </names>
     <popupTime>0</popupTime>
   </desktops>
@@ -26,13 +23,9 @@
     <raiseOnFocus>no</raiseOnFocus>
   </focus>
 
-  <placement>
-    <policy>Smart</policy>
-  </placement>
+  <placement><policy>Smart</policy></placement>
 
-  <resize>
-    <popupShow>Nonpixel</popupShow>
-  </resize>
+  <resize><popupShow>Nonpixel</popupShow></resize>
 
   <keyboard>
     <!-- Win+Enter: terminal -->
@@ -74,7 +67,7 @@
     <doubleClickTime>500</doubleClickTime>
     <screenEdgeWarpTime>400</screenEdgeWarpTime>
 
-    <!-- Root window (desktop) menus -->
+    <!-- Desktop menus -->
     <context name="Root">
       <mousebind button="Right" action="Press">
         <action name="ShowMenu"><menu>root-menu</menu></action>
@@ -84,46 +77,36 @@
       </mousebind>
     </context>
 
-    <!-- Titlebar -->
+    <!-- Titlebar actions -->
     <context name="Titlebar">
       <mousebind button="Left" action="Press">
-        <action name="Focus"/>
-        <action name="Raise"/>
+        <action name="Focus"/><action name="Raise"/>
       </mousebind>
-      <mousebind button="Left" action="Drag">
-        <action name="Move"/>
-      </mousebind>
-      <mousebind button="Left" action="Click">
-        <action name="Unshade"/>
-      </mousebind>
-      <mousebind button="Left" action="DoubleClick">
-        <action name="ToggleMaximizeFull"/>
-      </mousebind>
-      <mousebind button="Right" action="Click">
+      <mousebind button="Left" action="Drag"><action name="Move"/></mousebind>
+      <mousebind button="Left" action="DoubleClick"><action name="ToggleMaximizeFull"/></mousebind>
+
+      <!-- Use Press (widely reliable) for the window menu -->
+      <mousebind button="Right" action="Press">
         <action name="ShowMenu"><menu>client-menu</menu></action>
       </mousebind>
-      <mousebind button="Middle" action="Click">
-        <action name="Iconify"/>
-      </mousebind>
+
+      <mousebind button="Middle" action="Click"><action name="Iconify"/></mousebind>
     </context>
 
-    <!-- Window frame / borders -->
+    <!-- Borders/frame -->
     <context name="Frame">
-      <mousebind button="Left" action="Drag"><action name="Move"/></mousebind>
+      <mousebind button="Left"  action="Drag"><action name="Move"/></mousebind>
       <mousebind button="Right" action="Drag"><action name="Resize"/></mousebind>
     </context>
 
-    <!-- Inside the client: Alt-drag helpers -->
+    <!-- Inside client: ONLY Alt-drag does move/resize -->
     <context name="Client">
-      <mousebind button="A-Left" action="Drag"><action name="Move"/></mousebind>
+      <mousebind button="A-Left"  action="Drag"><action name="Move"/></mousebind>
       <mousebind button="A-Right" action="Drag"><action name="Resize"/></mousebind>
-      <!-- Optional: Alt+Middle lowers window -->
-      <!-- <mousebind button="A-Middle" action="Click"><action name="Lower"/></mousebind> -->
     </context>
   </mouse>
 
   <menu>
-    <!-- IMPORTANT: point to your menu.xml -->
     <file>menu.xml</file>
     <applicationIcons>no</applicationIcons>
   </menu>
