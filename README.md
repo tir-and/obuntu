@@ -77,3 +77,6 @@ Update later:
 git pull
 host/deploy-host.sh
 ```
+
+## License
+MIT
