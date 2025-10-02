@@ -38,46 +38,32 @@ Auto-launch X on tty1 after login. Add to `~/.bash_profile` or `~/.profile`:
 ### scripts/setup-production.sh
 Optional: installs screenshot & recording tools (`scrot`, `simplescreenrecorder`).
 
-## 🔊 PipeWire Audio
-Verify:
+Verify PipeWire Audio:
 ```bash
 pactl info | grep "Server Name"
 ```
 Expected: `PulseAudio (on PipeWire 0.3.x)`
 
-Bluetooth pairing:
+Bluetooth pairing use:
 ```bash
 bluetui
 ```
 
-## 🔒 Lock & Power
+## Lock & Power
 - Lock: `slock` (menu entry)
 - Screen off: 10 min (`xset` in `.xinitrc`)
 - Suspend: 30 min idle (`configs/systemd-logind/idle.conf`)
 
-## 🌐 Networking
-Default libvirt NAT network:
-```bash
-virsh net-start default
-virsh net-autostart default
-```
-
-## 📷 Screenshots
+## Screenshots
 Menu entries: Full, Window, Area. Recording via SimpleScreenRecorder.
 
-## 🧰 Update from GitHub
-Clone once:
-```bash
-git clone https://github.com/<you>/minimal-kvm-host.git
-cd minimal-kvm-host
-sudo host/setup-host.sh
-host/deploy-host.sh
-```
-Update later:
-```bash
-git pull
-host/deploy-host.sh
-```
+## Quick start
 
-## License
-MIT
+```bash
+git clone https://github.com/tir-and/ubuntu-qemu-labs-host.git
+cd ubuntu-qemu-labs-host
+chmod +x scripts/*.sh
+./host/base-setup.sh
+./host/openbox-deploy.sh
+./host/recorder-setup.sh
+```
