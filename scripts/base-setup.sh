@@ -8,7 +8,7 @@ fi
 
 apt update
 apt install -y --no-install-recommends \
-  qemu-system-x86 qemu-utils libvirt-daemon-system virt-manager ovmf bridge-utils pciutils \
+  qemu-system-x86 qemu-utils libvirt-daemon-system virt-manager ovmf bridge-utils pciutils libvirt-clients\
   xorg openbox obconf xterm xinit x11-xserver-utils \
   pipewire wireplumber pipewire-audio-client-libraries \
   alsa-utils bluez \
