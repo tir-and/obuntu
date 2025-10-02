@@ -5,7 +5,7 @@ Includes PipeWire audio, Bluetooth (`bluetui`), Arc-Dark theme, Ubuntu UI font, 
 
 ## 🚀 Scripts
 
-### host/setup-host.sh
+### scripts/setup-host.sh
 Run as root. Don'd forget to make it executable with sudo chmod +x .
 Installs:
 - QEMU/KVM, libvirt, virt-manager, OVMF
@@ -19,23 +19,24 @@ Configures:
 - Starts/enables `libvirtd` + `virtlogd`
 - Starts and autostarts the default libvirt NAT network
 
-### host/deploy-host.sh
-Run as your normal user. Deploys configs into `$HOME`:
+### scripts/deploy-host.sh
+Run as normal user. Deploys configs into `$HOME`:
 - GTK theme + fonts
 - Openbox configs (rc.xml, menu.xml)
 - `.xinitrc` (loads `.Xresources`, starts PipeWire)
 - `.Xresources` (xterm font/colors)
+- monitor resolution switcher
 
 Reloads Openbox if running.
 
 ### scripts/startx-autologin.sh
-Auto-launch X on tty1. Add to `~/.bash_profile` or `~/.profile`:
+Auto-launch X on tty1 after login. Add to `~/.bash_profile` or `~/.profile`:
 ```bash
 [[ -f ~/minimal-kvm-openbox-host/scripts/startx-autologin.sh ]] && exec ~/minimal-kvm-openbox-host/scripts/startx-autologin.sh
 ```
 
-### production/setup-production.sh
-Optional: installs screenshot & recording tools (`scrot`, `simplescreenrecorder`) and resolution switchers.
+### scripts/setup-production.sh
+Optional: installs screenshot & recording tools (`scrot`, `simplescreenrecorder`).
 
 ## 🔊 PipeWire Audio
 Verify:
