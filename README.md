@@ -66,4 +66,5 @@ chmod +x scripts/*.sh
 ./host/base-setup.sh
 ./host/openbox-deploy.sh
 ./host/recorder-setup.sh
+[[ -f ~/minimal-kvm-openbox-host/scripts/startx-autologin.sh ]] && exec ~/minimal-kvm-openbox-host/scripts/startx-autologin.sh
 ```
