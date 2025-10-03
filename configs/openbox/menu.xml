@@ -32,16 +32,11 @@
 
     <!-- Display / Resolutions -->
     <menu id="display" label="Display">
-      <menu id="resolutions" label="Resolution">
-        <item label="1920x1080">
-          <action name="Execute"><command>res-1920x1080</command></action>
-        </item>
-        <item label="3440x1440">
-          <action name="Execute"><command>res-3440x1440</command></action>
-        </item>
-      </menu>
+      <item label="Resolution">
+        <action name="Execute"><command>xterm -r res-xrandr.sh</command></action>
+      </item>
     </menu>
-
+    
     <separator/>
 
     <!-- System tools -->
