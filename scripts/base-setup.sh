@@ -1,5 +1,6 @@
 #!/usr/bin/env bash\nset -euo pipefail\nREPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"\n\n#!/usr/bin/env bash
 set -euo pipefail
+export DEBIAN_FRONTEND=noninteractive
 
 if [ "$(id -u)" -ne 0 ]; then
   echo "Run as root: sudo $0"
@@ -7,7 +8,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 apt update
-apt install -y --no-install-recommends \
+yes | apt install  -y --no-install-recommends \
   qemu-system-x86 qemu-utils libvirt-daemon-system virt-manager ovmf bridge-utils pciutils libvirt-clients\
   dnsmasq-base \
   xorg openbox obconf xterm xinit x11-xserver-utils \
