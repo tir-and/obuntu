@@ -63,8 +63,8 @@ Menu entries: Full, Window, Area. Recording via SimpleScreenRecorder.
 git clone https://github.com/tir-and/ubuntu-qemu-labs-host.git
 cd ubuntu-qemu-labs-host
 chmod +x scripts/*.sh
-./host/base-setup.sh
-./host/openbox-deploy.sh
-./host/recorder-setup.sh
+./scripts/base-setup.sh
+./scripts/openbox-deploy.sh
+./scripts/recorder-setup.sh
 [[ -f ~/minimal-kvm-openbox-host/scripts/startx-autologin.sh ]] && exec ~/minimal-kvm-openbox-host/scripts/startx-autologin.sh
 ```
