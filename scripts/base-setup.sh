@@ -10,7 +10,7 @@ fi
 apt update
 yes | apt install  -y --no-install-recommends \
   qemu-system-x86 qemu-utils libvirt-daemon-system virt-manager ovmf bridge-utils pciutils libvirt-clients qemu-system-modules-spice dnsmasq-base\
-  dnsmasq-base \
+  gir1.2-spiceclientgtk-3.0 \
   xorg openbox obconf xterm xinit x11-xserver-utils \
   pipewire wireplumber pipewire-audio-client-libraries \
   alsa-utils bluez \
