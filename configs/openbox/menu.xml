@@ -33,7 +33,7 @@
     <!-- Display / Resolutions -->
     <menu id="display" label="Display">
       <item label="Resolution">
-        <action name="Execute"><command>xterm -r res-xrandr.sh</command></action>
+        <action name="Execute"><command>bash -lc "~/.local/bin/res-xrandr"</command></action>
       </item>
     </menu>
     
