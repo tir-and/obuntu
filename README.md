@@ -66,5 +66,16 @@ chmod +x scripts/*.sh
 ./scripts/base-setup.sh
 ./scripts/openbox-deploy.sh
 ./scripts/recorder-setup.sh
-[[ -f ~/minimal-kvm-openbox-host/scripts/startx-autologin.sh ]] && exec ~/minimal-kvm-openbox-host/scripts/startx-autologin.sh
+[[ -f ~/ubuntu-qemu-labs-host/scripts/startx-autologin.sh ]] && exec ~/ubuntu-qemu-labs-host/scripts/startx-autologin.sh
+```
+
+## Remove snap and install firefox-esr
+```
+sudo apt purge snapd -y
+sudo rm -rf ~/snap
+sudo apt-mark hold snapd
+sudo apt update
+sudo add-apt-repository ppa:mozillateam/ppa
+sudo apt update
+sudo apt install firefox-esr
 ```
