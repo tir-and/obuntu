@@ -18,11 +18,6 @@ echo "Deploying Xresources..."
 cp -v "$REPO_DIR/configs/xresources/.Xresources" ~/.Xresources
 xrdb -merge "$REPO_DIR/configs/xresources/.Xresources" || true
 
-echo "Idle suspend config available (requires sudo):"
-echo "sudo mkdir -p /etc/systemd/logind.conf.d"
-echo "sudo cp -v $REPO_DIR/configs/systemd-logind/idle.conf /etc/systemd/logind.conf.d/idle.conf"
-echo "sudo systemctl restart systemd-logind"
-
 # --- Install Arc Openbox theme system-wide if missing ---
 if [ ! -d /usr/share/themes/Arc-Dark/openbox-3 ]; then
   echo "[*] Arc Openbox theme not found. Installing (requires sudo)..."
