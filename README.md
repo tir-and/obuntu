@@ -3,7 +3,19 @@
 Minimal Ubuntu Server LTS setup for virtualization with QEMU/KVM, libvirt, virt-manager, and Openbox.  
 Includes PipeWire audio, Bluetooth (`bluetui`), Arc-Dark theme, Ubuntu UI font, Hack font for terminal, screenshots & recording (optional), and GPU passthrough ready.
 
-## 🚀 Scripts
+## Quick start
+
+```bash
+git clone https://github.com/tir-and/ubuntu-qemu-labs-host.git
+cd ubuntu-qemu-labs-host
+chmod +x scripts/*.sh
+sudo ./scripts/base-setup.sh
+./scripts/openbox-deploy.sh
+./scripts/recorder-setup.sh
+[[ -f ~/ubuntu-qemu-labs-host/scripts/startx-autologin.sh ]] && exec ~/ubuntu-qemu-labs-host/scripts/startx-autologin.sh
+```
+
+###  Scripts
 
 ### scripts/setup-host.sh
 Run as root. Don'd forget to make it executable with sudo chmod +x .
@@ -49,33 +61,19 @@ Bluetooth pairing use:
 bluetui
 ```
 
-## Lock & Power
+### Lock & Power
 - Lock: `slock` (menu entry)
 - Screen off: 10 min (`xset` in `.xinitrc`)
 - Suspend: 30 min idle (`configs/systemd-logind/idle.conf`)
 
-## Screenshots
+### Screenshots
 Menu entries: Full, Window, Area. Recording via SimpleScreenRecorder.
 
-## Quick start
-
-```bash
-git clone https://github.com/tir-and/ubuntu-qemu-labs-host.git
-cd ubuntu-qemu-labs-host
-chmod +x scripts/*.sh
-./scripts/base-setup.sh
-./scripts/openbox-deploy.sh
-./scripts/recorder-setup.sh
-[[ -f ~/ubuntu-qemu-labs-host/scripts/startx-autologin.sh ]] && exec ~/ubuntu-qemu-labs-host/scripts/startx-autologin.sh
-```
-
-## Remove snap and install firefox-esr
+### Remove snap and install firefox-esr
 ```
 sudo apt purge snapd -y
 sudo rm -rf ~/snap
 sudo apt-mark hold snapd
-sudo apt update
 sudo add-apt-repository ppa:mozillateam/ppa
-sudo apt update
 sudo apt install firefox-esr
 ```
