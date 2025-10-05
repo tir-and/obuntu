@@ -45,4 +45,6 @@ fi
 if [[ -f "$HOME/.local/bin/res-xrandr" ]]; then
   chmod +x "$HOME/.local/bin/res-xrandr"
   echo "Installed: $HOME/.local/bin/res-xrandr"
-fi\n
+fi
+
+openbox --reconfigure
