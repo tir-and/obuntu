@@ -55,4 +55,10 @@ fi
 virsh net-start default || true
 virsh net-autostart default || true
 
+# Suspend
+echo "Idle suspend config available (requires sudo):"
+echo "sudo mkdir -p /etc/systemd/logind.conf.d"
+echo "sudo cp -v $REPO_DIR/configs/systemd-logind/idle.conf /etc/systemd/logind.conf.d/idle.conf"
+echo "sudo systemctl restart systemd-logind"
+
 echo "Setup complete. Reboot, login as user, then run host/deploy-host.sh"
