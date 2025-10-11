@@ -19,11 +19,10 @@ yes | apt install  -y --no-install-recommends \
   nano wget xclip udisks2
 
 # Install bluetui (pythops release) — raw binary, no tar needed
-BLUETUI_URL="https://github.com/pythops/bluetui/releases/download/v0.6/bluetui-x86_64-linux-gnu"
-TMPFILE="$(mktemp)"
-curl -L -o "$TMPFILE" "$BLUETUI_URL"
-sudo install -m 755 "$TMPFILE" /usr/local/bin/bluetui
-rm -f "$TMPFILE"
+curl -L -o bluetui https://github.com/pythops/bluetui/releases/download/v0.6/bluetui-x86_64-linux-gnu
+chmod +x bluetui 
+cp ./bluetui /usr/local/bin/bluetui
+rm -f ./bluetui
 
 echo "[*] Installing Arc Openbox theme system-wide..."
 TMPDIR=$(mktemp -d)
