@@ -16,7 +16,7 @@ yes | apt install  -y --no-install-recommends \
   alsa-utils bluez \
   arc-theme fonts-ubuntu fonts-hack \
   git curl wget unzip btop lm-sensors suckless-tools \
-  nano wget xclip
+  nano wget xclip udisks2
 
 # Install bluetui (pythops release) — raw binary, no tar needed
 BLUETUI_URL="https://github.com/pythops/bluetui/releases/download/v0.6/bluetui-x86_64-linux-gnu"
