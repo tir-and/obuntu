@@ -22,7 +22,7 @@ yes | apt install  -y --no-install-recommends \
 BLUETUI_URL="https://github.com/pythops/bluetui/releases/download/v0.6/bluetui-x86_64-linux-gnu"
 TMPFILE="$(mktemp)"
 curl -L -o "$TMPFILE" "$BLUETUI_URL"
-install -m 755 "$TMPFILE" /usr/local/bin/bluetui
+sudo install -m 755 "$TMPFILE" /usr/local/bin/bluetui
 rm -f "$TMPFILE"
 
 echo "[*] Installing Arc Openbox theme system-wide..."
