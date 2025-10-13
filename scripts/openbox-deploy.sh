@@ -18,6 +18,9 @@ echo "Deploying Xresources..."
 cp -v "$REPO_DIR/configs/xresources/.Xresources" ~/.Xresources
 xrdb -merge "$REPO_DIR/configs/xresources/.Xresources" || true
 
+mkdir -p ~/.config/dunst
+cp /usr/share/dunst/dunstrc ~/.config/dunst/
+
 if pgrep -x openbox >/dev/null 2>&1; then
   echo "Reloading Openbox..."
   openbox --reconfigure || true
