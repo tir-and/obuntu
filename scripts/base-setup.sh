@@ -52,6 +52,18 @@ fi
 virsh net-start default || true
 virsh net-autostart default || true
 
+# --- Install Arc Openbox theme system-wide if missing ---
+if [ ! -d /usr/share/themes/Arc-Dark/openbox-3 ]; then
+  echo "[*] Arc Openbox theme not found. Installing (requires sudo)..."
+  sudo apt-get update
+  sudo apt-get install -y git unzip >/dev/null
+
+  tmpdir="$(mktemp -d)"
+  git clone https://github.com/dglava/arc-openbox.git "$tmpdir/arc-openbox"
+  sudo mkdir -p /usr/share/themes
+  sudo cp -r "$tmpdir/arc-openbox"/Arc* /usr/share/themes/
+  rm -rf "$tmpdir"
+
 # Suspend
 echo "Idle suspend config available (requires sudo):"
 echo "sudo mkdir -p /etc/systemd/logind.conf.d"
