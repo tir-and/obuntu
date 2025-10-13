@@ -17,7 +17,7 @@ yes | apt install  -y --no-install-recommends \
   arc-theme fonts-ubuntu fonts-hack \
   git curl wget unzip btop lm-sensors suckless-tools \
   nano wget xclip udisks2 \ 
-  scrot dunst
+  scrot dunst libnotify-bin
 
 # Install bluetui (pythops release) — raw binary, no tar needed
 curl -L -o bluetui https://github.com/pythops/bluetui/releases/download/v0.6/bluetui-x86_64-linux-gnu
