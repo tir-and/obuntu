@@ -18,14 +18,14 @@ DEPLOY_REPO_CONFIGS=${DEPLOY_REPO_CONFIGS:-1}    # copy configs/ from this repo
 
 REPO_URL="${REPO_URL:-https://github.com/tir-and/ubuntu-qemu-host}"
 
-say() { printf "\033[1;34m[INFO]\033[0m %s\n" "$*"; }
-ok() {  printf "\033[1;32m[OK]\033[0m %s\n" "$*"; }
-warn() {printf "\033[1;33m[WARN]\033[0m %s\n" "$*"; }
+say()  { printf '\033[1;34m[INFO]\033[0m %s\n' "$*"; }
+ok()   { printf '\033[1;32m[OK]\033[0m %s\n' "$*"; }
+warn() { printf '\033[1;33m[WARN]\033[0m %s\n' "$*"; }
 need_root() { [[ $EUID -eq 0 ]] || { echo "Run as root: sudo $0"; exit 1; }; }
 
 need_root
 say "Updating APT…"
-apt-get update -y
+apt update -y
 
 # ── Purge unwanted bits (ignore if absent) ─────────────────────────────────────
 TO_PURGE=(
