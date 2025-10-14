@@ -120,7 +120,6 @@ if [[ "$DEPLOY_REPO_CONFIGS" -eq 1 && -n "${CONSOLE_USER:-}" ]]; then
       install -m 644 "$WORKDIR/configs/openbox/$f" "$USER_HOME/.config/openbox/$f" 2>/dev/null || true
   done
 
-  [[ -f "$USER_HOME/.Xresources" ]] || \
     install -m 644 "$WORKDIR/configs/Xresources" "$USER_HOME/.Xresources" 2>/dev/null || true
 
   if [[ -f "$WORKDIR/configs/xinitrc" && ! -f "$USER_HOME/.xinitrc" ]]; then
