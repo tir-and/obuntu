@@ -25,6 +25,7 @@ Available vars and defaults:
 
 Var	Default	Meaning
 GUI	1	1 = install Openbox + LightDM + virt-manager, 0 = headless
+
 USB_AUTOMOUNT	1	Install udisks2 + gvfs for USB automount
 AUDIO	0	1 = minimal host audio (PulseAudio + ALSA)
 USE_TIMESYNCD	1	Replace chrony with systemd-timesyncd
