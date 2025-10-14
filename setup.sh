@@ -22,6 +22,25 @@ fi
 echo "[*] apt update"
 apt-get update -y
 
+# Ensure networkd is ready with a generic DHCP for wired NICs
+sudo tee /etc/systemd/network/20-wired.network >/dev/null <<'EOF'
+[Match]
+Name=en*
+
+[Network]
+DHCP=yes
+EOF
+
+sudo systemctl enable --now systemd-networkd
+sudo systemctl enable --now systemd-resolved
+sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
+# Try to bring common names up so you see link immediately
+for IF in $(ip -o link show | awk -F': ' '{print $2}' | grep -E '^en'); do
+  ip link set "$IF" up || true
+done
+
+
 echo "[*] Purging unneeded packages (ignore errors if not installed)"
 PURGE_PKGS=(
   cloud-init
