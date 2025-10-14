@@ -7,7 +7,7 @@ set -euo pipefail
 # Toggles (override via env when calling)
 GUI=${GUI:-1}                   # 1 = Openbox+LightDM+virt-manager; 0 = headless
 USB_AUTOMOUNT=${USB_AUTOMOUNT:-1}
-AUDIO=${AUDIO:-0}               # 1 = PulseAudio+ALSA; 0 = silent
+AUDIO=${AUDIO:-1}               # 1 = PulseAudio+ALSA; 0 = silent
 USE_TIMESYNCD=${USE_TIMESYNCD:-1}
 INSTALL_CONVENIENCE=${INSTALL_CONVENIENCE:-1}
 INSTALL_ARC_OB_THEME=${INSTALL_ARC_OB_THEME:-1}
