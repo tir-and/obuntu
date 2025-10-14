@@ -19,28 +19,40 @@ if [[ $EUID -ne 0 ]]; then
   echo "Please run as root: sudo $0"; exit 1
 fi
 
-echo "[*] apt update"
-apt-get update -y
+# --- Networking FIRST (networkd is the default on Server Minimal) --------------
+echo "[*] Preparing networking (systemd-networkd + resolved)"
 
-# Ensure networkd is ready with a generic DHCP for wired NICs
-sudo tee /etc/systemd/network/20-wired.network >/dev/null <<'EOF'
+# If netplan configs exist, let netplan manage networkd; else provide a generic DHCP config
+if ls /etc/netplan/*.yaml >/dev/null 2>&1; then
+  echo "    - Netplan config detected; not writing /etc/systemd/network/*.network"
+else
+  echo "    - No netplan config found; creating generic DHCP for wired NICs (en*)"
+  tee /etc/systemd/network/20-wired.network >/dev/null <<'EOF'
 [Match]
 Name=en*
 
 [Network]
 DHCP=yes
 EOF
+fi
 
-sudo systemctl enable --now systemd-networkd
-sudo systemctl enable --now systemd-resolved
-sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+systemctl enable --now systemd-networkd
+systemctl enable --now systemd-resolved
+ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf || true
 
-# Try to bring common names up so you see link immediately
+# Try to bring common wired interfaces up so carrier/DHCP can happen immediately
 for IF in $(ip -o link show | awk -F': ' '{print $2}' | grep -E '^en'); do
   ip link set "$IF" up || true
 done
 
+# (Optional niceties for troubleshooting; will succeed once network is alive)
+apt-get update -y || true
+apt-get install -y --no-install-recommends iputils-ping ethtool || true
 
+# Quick sanity (won't fail the script)
+ip route || true
+
+# --- Now continue with the rest ------------------------------------------------
 echo "[*] Purging unneeded packages (ignore errors if not installed)"
 PURGE_PKGS=(
   cloud-init
@@ -112,7 +124,7 @@ if [[ "$INSTALL_ARC_OB_THEME" -eq 1 ]]; then
   rm -rf "$TMPDIR"
 fi
 
-echo "[*] Enabling systemd-networkd + resolved"
+echo "[*] Ensuring systemd-networkd + resolved remain enabled"
 systemctl enable --now systemd-networkd
 systemctl enable --now systemd-resolved
 ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf || true
