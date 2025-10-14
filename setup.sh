@@ -11,7 +11,7 @@ AUDIO=${AUDIO:-1}               # 1 = PulseAudio+ALSA; 0 = silent
 USE_TIMESYNCD=${USE_TIMESYNCD:-1}
 INSTALL_CONVENIENCE=${INSTALL_CONVENIENCE:-1}
 INSTALL_ARC_OB_THEME=${INSTALL_ARC_OB_THEME:-1}
-ENSURE_DEFAULT_NET=${ENSURE_DEFAULT_NET:-1}
+ENSURE_DEFAULT_NET=${ENSURE_DEFAULT_NET:-1}   # libvirt's NAT (virbr0); host networking unaffected
 DEPLOY_REPO_CONFIGS=${DEPLOY_REPO_CONFIGS:-1}
 REPO_URL="${REPO_URL:-https://github.com/tir-and/ubuntu-qemu-host}"
 
@@ -19,40 +19,9 @@ if [[ $EUID -ne 0 ]]; then
   echo "Please run as root: sudo $0"; exit 1
 fi
 
-# --- Networking FIRST (networkd is the default on Server Minimal) --------------
-echo "[*] Preparing networking (systemd-networkd + resolved)"
+echo "[*] apt update"
+apt-get update -y
 
-# If netplan configs exist, let netplan manage networkd; else provide a generic DHCP config
-if ls /etc/netplan/*.yaml >/dev/null 2>&1; then
-  echo "    - Netplan config detected; not writing /etc/systemd/network/*.network"
-else
-  echo "    - No netplan config found; creating generic DHCP for wired NICs (en*)"
-  tee /etc/systemd/network/20-wired.network >/dev/null <<'EOF'
-[Match]
-Name=en*
-
-[Network]
-DHCP=yes
-EOF
-fi
-
-systemctl enable --now systemd-networkd
-systemctl enable --now systemd-resolved
-ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf || true
-
-# Try to bring common wired interfaces up so carrier/DHCP can happen immediately
-for IF in $(ip -o link show | awk -F': ' '{print $2}' | grep -E '^en'); do
-  ip link set "$IF" up || true
-done
-
-# (Optional niceties for troubleshooting; will succeed once network is alive)
-apt-get update -y || true
-apt-get install -y --no-install-recommends iputils-ping ethtool || true
-
-# Quick sanity (won't fail the script)
-ip route || true
-
-# --- Now continue with the rest ------------------------------------------------
 echo "[*] Purging unneeded packages (ignore errors if not installed)"
 PURGE_PKGS=(
   cloud-init
@@ -124,16 +93,8 @@ if [[ "$INSTALL_ARC_OB_THEME" -eq 1 ]]; then
   rm -rf "$TMPDIR"
 fi
 
-echo "[*] Ensuring systemd-networkd + resolved remain enabled"
-systemctl enable --now systemd-networkd
-systemctl enable --now systemd-resolved
-ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf || true
-if [[ "$USE_TIMESYNCD" -eq 1 ]]; then
-  systemctl enable --now systemd-timesyncd || true
-fi
-
 if [[ "$ENSURE_DEFAULT_NET" -eq 1 ]]; then
-  echo "[*] Ensuring libvirt default NAT network exists"
+  echo "[*] Ensuring libvirt default NAT network exists (does not change host networking)"
   if ! virsh net-list --all | grep -q "^ default"; then
     virsh net-define /usr/share/libvirt/networks/default.xml || true
   fi
@@ -159,8 +120,8 @@ if [[ "$DEPLOY_REPO_CONFIGS" -eq 1 && -n "${CONSOLE_USER:-}" ]]; then
       install -m 644 "$WORKDIR/configs/openbox/$f" "$USER_HOME/.config/openbox/$f" 2>/dev/null || true
   done
 
-  install -m 644 "$WORKDIR/configs/Xresources" "$USER_HOME/.Xresources" 2>/dev/null || true
-
+  [[ -f "$USER_HOME/.Xresources" ]] || \
+    install -m 644 "$WORKDIR/configs/Xresources" "$USER_HOME/.Xresources" 2>/dev/null || true
 
   if [[ -f "$WORKDIR/configs/xinitrc" && ! -f "$USER_HOME/.xinitrc" ]]; then
     install -m 644 "$WORKDIR/configs/xinitrc" "$USER_HOME/.xinitrc" || true
@@ -187,5 +148,5 @@ if [[ "$DEPLOY_REPO_CONFIGS" -eq 1 && -n "${CONSOLE_USER:-}" ]]; then
 fi
 
 echo "[✓] Done. Reboot recommended."
-echo "Check: systemctl is-active libvirtd; systemctl is-active systemd-networkd systemd-resolved"
+echo "Check: systemctl is-active libvirtd"
 echo "If GUI enabled: log in via LightDM → Openbox → Virtual Machine Manager"
