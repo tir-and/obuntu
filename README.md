@@ -1,79 +1,52 @@
-# Minimal KVM Host (Ubuntu Server LTS + Openbox)
+ubuntu-qemu-host
 
-Minimal Ubuntu Server LTS setup for virtualization with QEMU/KVM, libvirt, virt-manager, and Openbox.  
-Includes PipeWire audio, Bluetooth (`bluetui`), Arc-Dark theme, Ubuntu UI font, Hack font for terminal, screenshots & recording (optional), and GPU passthrough ready.
+Minimal, fast Ubuntu Server (Minimal) → KVM virtualization host.
+Optionally adds a tiny Openbox + LightDM GUI for running virt-manager locally.
 
-## Quick start
+Features
 
-```bash
-git clone https://github.com/tir-and/ubuntu-qemu-labs-host.git
-cd ubuntu-qemu-labs-host
-chmod +x scripts/*.sh
-sudo ./scripts/base-setup.sh
-./scripts/openbox-deploy.sh
-./scripts/recorder-setup.sh
-[[ -f ~/ubuntu-qemu-labs-host/scripts/startx-autologin.sh ]] && exec ~/ubuntu-qemu-labs-host/scripts/startx-autologin.sh
+- Lean base (purges snapd, cloud-init, unattended upgrades, etc.)
+- Full KVM/libvirt stack (QEMU, OVMF/UEFI, virt-manager/virt-viewer)
+- Optional tiny GUI (Openbox + LightDM) or headless
+- Optional USB automount (udisks2 + gvfs)
+- Optional minimal audio (PulseAudio)
+- Convenience tools (btop, git, fonts, xclip, etc.)
+- Optional deployment of repo configs/ (Openbox menu, Xresources, logind idle)
+
+```
+# (Recommended) Update APT and get tiny bootstrap tools
+sudo apt update && sudo apt install -y --no-install-recommends ca-certificates git wget
+
+# Run the installer with defaults (GUI ON, audio OFF)
+sudo bash -c "$(wget -qO- https://raw.githubusercontent.com/tir-and/ubuntu-qemu-host/main/setup-ubuntu-qemu-host.sh)"
 ```
 
-###  Scripts
+Available vars and defaults:
 
-### scripts/setup-host.sh
-Run as root. Don'd forget to make it executable with sudo chmod +x .
-Installs:
-- QEMU/KVM, libvirt, virt-manager, OVMF
-- Openbox, Xorg, xterm, Arc-Dark theme, Ubuntu & Hack fonts
-- PipeWire, WirePlumber, ALSA, Bluetooth (bluetui)
-- btop, lm-sensors, slock
+Var	Default	Meaning
+GUI	1	1 = install Openbox + LightDM + virt-manager, 0 = headless
+USB_AUTOMOUNT	1	Install udisks2 + gvfs for USB automount
+AUDIO	0	1 = minimal host audio (PulseAudio + ALSA)
+USE_TIMESYNCD	1	Replace chrony with systemd-timesyncd
+INSTALL_CONVENIENCE	1	Tools/fonts/themes (btop, git, fonts, arc-theme, etc.)
+INSTALL_ARC_OB_THEME	1	Fetch Arc Openbox theme to /usr/share/themes
+ENSURE_DEFAULT_NET	1	Ensure/start libvirt default NAT network
+DEPLOY_REPO_CONFIGS	1	Copy configs from this repo into the user’s home
 
-Configures:
-- Adds user to `libvirt` and `kvm` groups
-- Enables linger for user services
-- Starts/enables `libvirtd` + `virtlogd`
-- Starts and autostarts the default libvirt NAT network
+What gets installed
+Virtualization: qemu-system-x86, qemu-utils, qemu-system-modules-spice,
+libvirt-daemon-system, libvirt-clients, bridge-utils, virtinst, virt-viewer,
+ovmf, pciutils, gir1.2-spiceclientgtk-3.0.
+GUI (if GUI=1): xorg, openbox, lightdm, lightdm-gtk-greeter, xterm, x11-xserver-utils,
+virt-manager, policykit-1, dbus-x11, adwaita-icon-theme, fonts-dejavu, scrot, xinit.
+USB automount (if USB_AUTOMOUNT=1): udisks2, gvfs.
+Audio (if AUDIO=1): pulseaudio, alsa-utils.
+Convenience (if INSTALL_CONVENIENCE=1): arc-theme, fonts-ubuntu, fonts-hack,
+git, curl, wget, unzip, btop, lm-sensors, suckless-tools, nano, xclip.
+All installs use --no-install-recommends to keep things lean.
 
-### scripts/deploy-host.sh
-Run as normal user. Deploys configs into `$HOME`:
-- GTK theme + fonts
-- Openbox configs (rc.xml, menu.xml)
-- `.xinitrc` (loads `.Xresources`, starts PipeWire)
-- `.Xresources` (xterm font/colors)
-- monitor resolution switcher
-
-Reloads Openbox if running.
-
-### scripts/startx-autologin.sh
-Auto-launch X on tty1 after login. Add to `~/.bash_profile` or `~/.profile`:
-```bash
-[[ -f ~/minimal-kvm-openbox-host/scripts/startx-autologin.sh ]] && exec ~/minimal-kvm-openbox-host/scripts/startx-autologin.sh
-```
-
-### scripts/setup-production.sh
-Optional: installs screenshot & recording tools (`scrot`, `simplescreenrecorder`).
-
-Verify PipeWire Audio:
-```bash
-pactl info | grep "Server Name"
-```
-Expected: `PulseAudio (on PipeWire 0.3.x)`
-
-Bluetooth pairing use:
-```bash
-bluetui
-```
-
-### Lock & Power
-- Lock: `slock` (menu entry)
-- Screen off: 10 min (`xset` in `.xinitrc`)
-- Suspend: 30 min idle (`configs/systemd-logind/idle.conf`)
-
-### Screenshots
-Menu entries: Full, Window, Area. Recording via SimpleScreenRecorder.
-
-### Remove snap and install firefox-esr
-```
-sudo apt purge snapd -y
-sudo rm -rf ~/snap
-sudo apt-mark hold snapd
-sudo add-apt-repository ppa:mozillateam/ppa
-sudo apt install firefox-esr
-```
+What gets removed / blocked
+Removed: cloud-init, unattended-upgrades, update-notifier-common, snapd,
+rsyslog, apport, whoopsie, network-manager, avahi-daemon, cups*,
+bluez, blueman, modemmanager (and chrony if USE_TIMESYNCD=1).
+Held (blocked from re-install): snapd, apport, whoopsie, cloud-init, avahi-daemon.
