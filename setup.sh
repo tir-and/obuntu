@@ -47,6 +47,10 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-viewer \
   ovmf pciutils gir1.2-spiceclientgtk-3.0 || true
 
+#spice sound passthrough
+sudo apt install gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav
+
+
 systemctl enable --now libvirtd || systemctl enable --now libvirt-daemon || true
 
 if [[ "$GUI" -eq 1 ]]; then
