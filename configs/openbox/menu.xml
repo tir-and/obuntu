@@ -33,7 +33,7 @@
     <!-- Display / Resolutions -->
     <menu id="display" label="Display">
       <item label="Resolution">
-        <action name="Execute"><xterm -e res-xrandr</command></action>
+        <action name="Execute"><command>xterm -e res-xrandr</command></action>
       </item>
     </menu>
     
