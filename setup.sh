@@ -53,7 +53,7 @@ if [[ "$GUI" -eq 1 ]]; then
   echo "[*] Installing minimal GUI (Openbox + LightDM + virt-manager)"
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     xorg openbox lightdm lightdm-gtk-greeter xterm x11-xserver-utils \
-    virt-manager virt-viewer policykit-1 dbus-x11 \
+    virt-manager virt-viewer polkitd policykit-1-gnome dbus-x11 \
     adwaita-icon-theme fonts-dejavu scrot xinit
 
   if [[ "$USB_AUTOMOUNT" -eq 1 ]]; then
