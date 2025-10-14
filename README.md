@@ -24,32 +24,29 @@ sudo bash -c "$(wget -qO- https://raw.githubusercontent.com/tir-and/ubuntu-qemu-
 Available vars and defaults:
 
 Var	Default	Meaning
-GUI	1	1 = install Openbox + LightDM + virt-manager, 0 = headless
-USB_AUTOMOUNT	1	Install udisks2 + gvfs for USB automount
-AUDIO	0	1 = minimal host audio (PulseAudio + ALSA)
-USE_TIMESYNCD	1	Replace chrony with systemd-timesyncd
-INSTALL_CONVENIENCE	1	Tools/fonts/themes (btop, git, fonts, arc-theme, etc.)
-INSTALL_ARC_OB_THEME	1	Fetch Arc Openbox theme to /usr/share/themes
-ENSURE_DEFAULT_NET	1	Ensure/start libvirt default NAT network
-DEPLOY_REPO_CONFIGS	1	Copy configs from this repo into the user’s home
+GUI	1	1 = install Openbox + LightDM + virt-manager, 0 = headless  
+USB_AUTOMOUNT	1	Install udisks2 + gvfs for USB automount  
+AUDIO	0	1 = minimal host audio (PulseAudio + ALSA)  
+USE_TIMESYNCD	1	Replace chrony with systemd-timesyncd  
+INSTALL_CONVENIENCE	1	Tools/fonts/themes (btop, git, fonts, arc-theme, etc.)  
+INSTALL_ARC_OB_THEME	1	Fetch Arc Openbox theme to /usr/share/themes  
+ENSURE_DEFAULT_NET	1	Ensure/start libvirt default NAT network  
+DEPLOY_REPO_CONFIGS	1	Copy configs from this repo into the user’s home  
 
-What gets installed
-Virtualization: qemu-system-x86, qemu-utils, qemu-system-modules-spice,
-libvirt-daemon-system, libvirt-clients, bridge-utils, virtinst, virt-viewer,
-ovmf, pciutils, gir1.2-spiceclientgtk-3.0.
-GUI (if GUI=1): xorg, openbox, lightdm, lightdm-gtk-greeter, xterm, x11-xserver-utils,
-virt-manager, policykit-1, dbus-x11, adwaita-icon-theme, fonts-dejavu, scrot, xinit.
-USB automount (if USB_AUTOMOUNT=1): udisks2, gvfs.
-Audio (if AUDIO=1): pulseaudio, alsa-utils.
-Convenience (if INSTALL_CONVENIENCE=1): arc-theme, fonts-ubuntu, fonts-hack,
-git, curl, wget, unzip, btop, lm-sensors, suckless-tools, nano, xclip.
-All installs use --no-install-recommends to keep things lean.
+What gets installed  
+Virtualization: qemu-system-x86, qemu-utils, qemu-system-modules-spice,  
+libvirt-daemon-system, libvirt-clients, bridge-utils, virtinst, virt-viewer,  
+ovmf, pciutils, gir1.2-spiceclientgtk-3.0.  
+GUI (if GUI=1): xorg, openbox, lightdm, lightdm-gtk-greeter, xterm, x11-xserver-utils,  
+virt-manager, policykit-1, dbus-x11, adwaita-icon-theme, fonts-dejavu, scrot, xinit.  
+USB automount (if USB_AUTOMOUNT=1): udisks2, gvfs.  
+Audio (if AUDIO=1): pulseaudio, alsa-utils.  
+Convenience (if INSTALL_CONVENIENCE=1): arc-theme, fonts-ubuntu, fonts-hack,  
+git, curl, wget, unzip, btop, lm-sensors, suckless-tools, nano, xclip.  
+All installs use --no-install-recommends to keep things lean.  
 
-What gets removed / blocked
-Removed: cloud-init, unattended-upgrades, update-notifier-common, snapd,
-rsyslog, apport, whoopsie, network-manager, avahi-daemon, cups*,
-bluez, blueman, modemmanager (and chrony if USE_TIMESYNCD=1).
-Held (blocked from re-install): snapd, apport, whoopsie, cloud-init, avahi-daemon.
-
-hi
-me too
+What gets removed / blocked  
+Removed: cloud-init, unattended-upgrades, update-notifier-common, snapd,  
+rsyslog, apport, whoopsie, network-manager, avahi-daemon, cups*,  
+bluez, blueman, modemmanager (and chrony if USE_TIMESYNCD=1).  
+Held (blocked from re-install): snapd, apport, whoopsie, cloud-init, avahi-daemon.  
