@@ -32,7 +32,7 @@ PURGE_PKGS=(
   apport whoopsie
   network-manager
   avahi-daemon
-  cups* bluez blueman modemmanager
+  cups* modemmanager
 )
 [[ "$USE_TIMESYNCD" -eq 1 ]] && PURGE_PKGS+=( chrony )
 DEBIAN_FRONTEND=noninteractive apt-get purge -y "${PURGE_PKGS[@]}" || true
