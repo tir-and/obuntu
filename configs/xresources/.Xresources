@@ -18,9 +18,12 @@ XTerm*scrollKey: true
 XTerm*utf8: 2
 XTerm*eightBitInput: false
 
-! select to copy
-XTerm*selectToClipboard: true
-XTerm*highlightSelection: true
+! copy-paste
+xterm*VT100.Translations: #override \
+Shift <KeyPress> Insert: insert-selection(CLIPBOARD) \n\
+Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
+Ctrl Shift <Key>C:    copy-selection(CLIPBOARD) \n\
+Ctrl <Btn1Up>: exec-formatted("xdg-open '%t'", PRIMARY)
 
 ! ==== Arc-Dark Colors ====
 XTerm*background:  #2f343f
