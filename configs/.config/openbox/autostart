@@ -1,0 +1,2 @@
+stalonetray &
+(sleep 0.5; xdotool search --name stalonetray windowunmap) &
