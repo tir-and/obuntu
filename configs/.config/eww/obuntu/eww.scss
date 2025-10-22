@@ -1,0 +1,6 @@
+* { all: unset; font-family: "JetBrainsMono Nerd Font", "Ubuntu"; }
+.bar      { background: rgba(0,0,0,.35); padding: 8px 6px; border-radius: 12px; }
+.icon     { font-size: 18px; padding: 6px 0; }
+.sep      { border-left: 0px solid transparent; }
+.clock    { padding: 8px 0; opacity: .9; font-weight: 600; }
+button:hover { opacity: .9; transform: scale(1.05); }
