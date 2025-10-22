@@ -86,6 +86,7 @@ sudo fc-cache -f -v
 Commit or zip your updated setup folder.
 
 6. Quick reference (things that may change per release)
+
 | Area                     | What to check                              |
 |--------------------------|--------------------------------------------|
 | **PPA codename**         | Update in `desktop.sh`                     |
