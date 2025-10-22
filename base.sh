@@ -44,7 +44,7 @@ EOF
 systemctl enable rsyslog
 
 # Optional: basic QoL
-if ! command -v htop >/dev/null 2>&1; then
+if ! command -v btop >/dev/null 2>&1; then
   apt-get install -y --no-install-recommends btop
 fi
 
