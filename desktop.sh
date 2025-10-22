@@ -45,7 +45,8 @@ apt-get install -y --no-install-recommends \
   network-manager network-manager-gnome \
   feh neofetch gnome-disk-utility \
   fonts-ubuntu fonts-hack-ttf \
-  git xsettingsd
+  git xsettingsd \
+  stalonetray rofi
 
 # Ensure desktop services
 systemctl enable lightdm
