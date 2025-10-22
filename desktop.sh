@@ -44,9 +44,7 @@ apt-get install -y --no-install-recommends \
   pipewire pipewire-audio pipewire-pulse wireplumber \
   network-manager network-manager-gnome \
   feh neofetch gnome-disk-utility \
-  fonts-ubuntu fonts-hack-ttf \
-  git xsettingsd \
-  stalonetray rofi
+  git xsettingsd 
 
 # Ensure desktop services
 systemctl enable lightdm
