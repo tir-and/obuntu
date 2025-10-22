@@ -1,2 +1,3 @@
 stalonetray &
 (sleep 0.5; xdotool search --name stalonetray windowunmap) &
+~/.config/eww/obuntu/start.sh &
