@@ -1,0 +1,6 @@
+[global]
+font = Ubuntu 10
+frame_width = 0
+separator_height = 1
+padding = 8
+horizontal_padding = 12
