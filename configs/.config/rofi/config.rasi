@@ -1,2 +1,5 @@
-configuration { modi: "drun,run"; show-icons: true; font: "JetBrainsMono Nerd Font 11"; }
+configuration { 
+    modi: "drun,run"; 
+    show-icons: true; 
+    font: "JetBrainsMono Nerd Font 11"; }
 @theme "tokyonight"  /* or your Celestial-matching theme */
