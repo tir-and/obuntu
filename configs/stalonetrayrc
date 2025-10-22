@@ -1,0 +1,15 @@
+# Stalonetray - dropdown tray controlled via ~/.local/bin/system_tray.sh
+background "#000000"
+decorations none
+dockapp_mode simple
+fuzzy_edges 0
+grow_gravity NW
+icon_gravity NW
+# 24x1 (icons x rows). Adjust for density:
+geometry 24x1+8+36
+icon_size 20
+slot_size 22
+skip_taskbar true
+sticky true
+transparent true
+window_type dock
