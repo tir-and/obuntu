@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+# Add simple ISO readme & wallpaper if present
+install -d "${LIVE_BOOT_DIR:-binary}/OBUNTU"
+cp -f config/includes.binary/iso/README-OBUNTU.txt "${LIVE_BOOT_DIR:-binary}/OBUNTU/" || true
+# Plymouth/greeter theming can go here later
