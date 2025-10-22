@@ -87,12 +87,13 @@ Commit or zip your updated setup folder.
 
 6. Quick reference (things that may change per release)
 | Area                     | What to check                              |
-| ------------------------ | ------------------------------------------ |
+|--------------------------|--------------------------------------------|
 | **PPA codename**         | Update in `desktop.sh`                     |
 | **Renamed packages**     | e.g., audio libs, GTK names                |
 | **Removed dependencies** | Optional; drop from script if 404s         |
 | **Themes/fonts**         | Verify GitHub sources still exist          |
 | **Network setup**        | Ensure NetworkManager enabled post-upgrade |
+
 
 
 7. Emergency restore
