@@ -1,0 +1,19 @@
+ubuntu-minimal
+sudo
+linux-generic
+net-tools
+curl
+wget
+vim-tiny
+ca-certificates
+openssh-client
+network-manager
+rsyslog
+avahi-daemon
+# Core audio stack (PipeWire)
+pipewire
+pipewire-audio
+pipewire-pulse
+wireplumber
+# Display manager (lightdm minimal)
+lightdm
