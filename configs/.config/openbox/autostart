@@ -1,3 +1,30 @@
+# ---- Environment ----
+export GTK_THEME=Celestial:dark
+
+# ---- X settings (GTK theme, fonts, icons) ----
+xsettingsd &
+
+# ---- Compositor & notifications ----
+picom --config "$HOME/.config/picom/picom.conf" &
+dunst &
+
+# ---- Network & (optional) Bluetooth applets ----
+nm-applet &
+# blueman-applet &   # uncomment if you install blueman
+
+# ---- Dock ----
+plank &   # or plank-reloaded; config path is the same
+
+# ---- System tray: start, then hide; toggle via ~/.local/bin/system_tray.sh ----
 stalonetray &
-(sleep 0.5; xdotool search --name stalonetray windowunmap) &
-~/.config/eww/obuntu/start.sh &
+(sleep 0.7; xdotool search --name stalonetray windowunmap) &
+
+# ---- Eww vertical bar ----
+"$HOME/.config/eww/obuntu/start.sh" &
+
+# ---- Wallpaper (optional) ----
+if [ -f /usr/share/backgrounds/obuntu.png ]; then
+  feh --bg-scale /usr/share/backgrounds/obuntu.png
+fi
+
+# ---- Anything else you want to auto-launch goes below ----
