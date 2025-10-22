@@ -79,14 +79,22 @@ if [[ ! -d "$THEME_DIR/Celestial" ]]; then
 fi
 
 # --- FONTS ---
-SRC_FONTS="configs/fonts"
-DST_FONTS="/usr/local/share/fonts/obuntu"
-if [[ -d "$SRC_FONTS" ]]; then
-  echo "[*] Installing custom fonts..."
-  mkdir -p "$DST_FONTS"
-  find "$SRC_FONTS" -type f \( -iname "*.ttf" -o -iname "*.otf" \) -exec install -m 0644 {} "$DST_FONTS"/ \;
-  fc-cache -f -v || true
-fi
+echo "[*] Installing fonts from Ubuntu repositories ..."
+apt-get install -y --no-install-recommends \
+  fonts-ubuntu \
+  fonts-dejavu \
+  fonts-hack-ttf \
+  fonts-jetbrains-mono \
+  fonts-noto-color-emoji \
+  fonts-font-awesome
+
+# Note: Full Nerd Fonts (for nnn's icon glyphs) are generally NOT in official Ubuntu repos.
+# The above will still look great; for true Nerd Font glyph coverage you'd either:
+#  a) add a Nerd Fonts PPA, or
+#  b) vendor a single Nerd-patched font file (your previous approach).
+# If you stay repo-only, Rofi/eww/plank icons will work via Font Awesome etc.,
+# and nnn will still work (just fewer icon glyphs).
+fc-cache -f -v || true
 
 # --- CONFIGS into /etc/skel ---
 copy_into_skel() {
