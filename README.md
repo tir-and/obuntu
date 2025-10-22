@@ -1,0 +1,5 @@
+
+
+```
+sudo bash base.sh
+```
