@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+lb config \
+  --distribution noble \
+  --architectures amd64 \
+  --debian-installer live \
+  --debian-installer-gui false \
+  --binary-images iso-hybrid \
+  --mirror-bootstrap http://archive.ubuntu.com/ubuntu/ \
+  --mirror-binary http://archive.ubuntu.com/ubuntu/ \
+  --updates true --security true \
+  --apt-recommends false \
+  --firmware-chroot true \
+  --firmware-binary true \
+  --linux-flavours generic \
+  --bootappend-live "boot=live quiet splash noeject"
