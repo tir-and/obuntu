@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+
 LOG="/var/log/obuntu-base.log"
+mkdir -p "$(dirname "$LOG")" && touch "$LOG"
 exec > >(tee -a "$LOG") 2>&1
 
 echo "[*] Obuntu base setup starting..."
