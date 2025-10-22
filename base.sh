@@ -22,6 +22,9 @@ apt-get install -y --no-install-recommends \
   ca-certificates curl wget gnupg lsb-release vim-tiny net-tools \
   rsyslog openssh-client
 
+# start rsyslog
+systemctl start rsyslog
+
 # Enforce lean installs
 mkdir -p /etc/apt/apt.conf.d
 cat >/etc/apt/apt.conf.d/10no-recommends <<'EOF'
