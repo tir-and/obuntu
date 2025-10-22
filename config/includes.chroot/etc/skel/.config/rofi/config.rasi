@@ -1,0 +1,6 @@
+configuration {
+  modi: "drun,run";
+  show-icons: true;
+  font: "Hack 11";
+  sidebar-mode: false;
+}
