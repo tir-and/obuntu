@@ -54,15 +54,17 @@ sudo reboot
 4. Post-upgrade verification
 After reboot, confirm each component:
 
-Check            Command or action                      Expected result
-Display manager  LightDM shows login screen	              ✅
-Desktop session  Openbox loads, Rofi/Plank/Picom start	  ✅
-Audio            pactl info or systemctl --user status pipewire	✅ active
-Network          nmcli shows devices                      ✅ working
-Fonts            `fc-list`                                `grep Hack`
-Theme            GTK apps use “Celestial”                 ✅ correct
-Dock             Plank-Reloaded visible                   ✅
-System logs      sudo journalctl -p 3 -xb	                no errors
+| Check               | Command or action                                  | Expected result       |
+|---------------------|----------------------------------------------------|-----------------------|
+| **Display manager** | LightDM shows login screen                         | ✅                     |
+| **Desktop session** | Openbox loads, Rofi/Plank/Picom start              | ✅                     |
+| **Audio**           | `pactl info` or `systemctl --user status pipewire` | ✅ active              |
+| **Network**         | `nmcli` shows devices                              | ✅ working             |
+| **Fonts**           | `fc-list \| grep Hack`                             | ✅ found               |
+| **Theme**           | GTK apps use “Celestial”                           | ✅ correct             |
+| **Dock**            | Plank-Reloaded visible                             | ✅                     |
+| **System logs**     | `sudo journalctl -p 3 -xb`                         | no errors             |
+
 
 If anything fails, re-run:
 ```
@@ -84,12 +86,14 @@ sudo fc-cache -f -v
 Commit or zip your updated setup folder.
 
 6. Quick reference (things that may change per release)
-Area                  What to check
-PPA codename          Update in desktop.sh
-Renamed packages      e.g., audio libs, GTK names
-Removed dependencies  Optional; drop from script if 404s
-Themes/fonts          Verify GitHub sources still exist
-Network setup        Ensure NetworkManager enabled post-upgrade
+| Area                     | What to check                              |
+| ------------------------ | ------------------------------------------ |
+| **PPA codename**         | Update in `desktop.sh`                     |
+| **Renamed packages**     | e.g., audio libs, GTK names                |
+| **Removed dependencies** | Optional; drop from script if 404s         |
+| **Themes/fonts**         | Verify GitHub sources still exist          |
+| **Network setup**        | Ensure NetworkManager enabled post-upgrade |
+
 
 7. Emergency restore
 If something breaks badly:
@@ -99,10 +103,12 @@ sudo xargs -a ~/backup-obuntu/packages.list apt install -y
 Then re-run both setup scripts.
 
 Summary
-Step	Action
-1	Backup configs & scripts
-2	Update PPAs to new codename
-3	Run upgrade or clean install
-4	Re-run base + desktop scripts
-5	Verify functionality
-6	Clean & reboot
+| Step | Action                        |
+| ---- | ----------------------------- |
+| 1    | Backup configs & scripts      |
+| 2    | Update PPAs to new codename   |
+| 3    | Run upgrade or clean install  |
+| 4    | Re-run base + desktop scripts |
+| 5    | Verify functionality          |
+| 6    | Clean & reboot                |
+
