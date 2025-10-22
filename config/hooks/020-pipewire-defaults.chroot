@@ -1,6 +1,0 @@
-#!/bin/bash
-set -e
-# Ensure pipewire is default
-systemctl --global enable pipewire pipewire-pulse wireplumber
-# Remove pulseaudio if it sneaks in
-apt-get purge -y pulseaudio || true
