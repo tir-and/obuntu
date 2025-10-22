@@ -1,0 +1,35 @@
+;; ---- WINDOWS ----
+(defwindow bar-left
+  :monitor 0
+  :stacking "fg"
+  :focusable false
+  :geometry (geometry
+    :x "0%"
+    :y "50%"
+    :width "48px"
+    :height "100%"
+    :anchor "left center")
+  (bar-vertical))
+
+;; ---- WIDGETS ----
+(defwidget bar-vertical []
+  (box :orientation "vertical" :space-evenly false :class "bar"
+    (box :class "block" :halign "center" (label :text "")) ; logo
+    (sep)
+    (btn :tooltip "Apps"    :icon "󰍜" :cmd "rofi -show drun")
+    (btn :tooltip "Files"   :icon "󰝰" :cmd "xterm -e nnn")
+    (btn :tooltip "Browser" :icon "" :cmd "firefox-esr")
+    (sep)
+    (btn :tooltip "Tray"    :icon "󰏤" :cmd "~/.local/bin/system_tray.sh")
+    (sep)
+    (clock)
+    ))
+
+(defwidget sep [] (box :class "sep" :valign "center" :vexpand true (label :text "")))
+
+(defwidget btn [tooltip icon cmd]
+  (button :tooltip tooltip :onclick cmd (label :class "icon" :text icon)))
+
+(defwidget clock []
+  (box :class "clock" (label :text {date "+%H:%M"}) ))
+
