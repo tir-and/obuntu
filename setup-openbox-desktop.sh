@@ -23,8 +23,19 @@ INSTALL_CONVENIENCE=${INSTALL_CONVENIENCE:-1}  # fonts, tools, picom, etc.
 if [[ $EUID -ne 0 ]]; then echo "Please run as root: sudo $0"; exit 1; fi
 apt-get update -y
 
-# Undo previous “holds” that block desktop features you now want
-apt-mark unhold snapd apport whoopsie cloud-init avahi-daemon || true
+# Remove and purge unwanted daemons
+sudo apt-get purge -y snapd apport whoopsie cloud-init
+sudo apt-get autoremove --purge -y
+
+# Block them from being reinstalled
+sudo apt-mark hold snapd apport whoopsie cloud-init
+
+# Optional: extra safety – prevent Snap auto-install
+sudo tee /etc/apt/preferences.d/nosnap.pref >/dev/null <<'EOF'
+Package: snapd
+Pin: release *
+Pin-Priority: -1
+EOF
 
 # ============
 # Core stacks
@@ -97,7 +108,7 @@ if [[ "$GUI" -eq 1 ]]; then
   # Convenience desktop bits (fonts, tools, compositor)
   if [[ "$INSTALL_CONVENIENCE" -eq 1 ]]; then
     apt-get install -y --no-install-recommends \
-      fonts-ubuntu fonts-hack picom git curl wget unzip btop lm-sensors suckless-tools nano xclip
+      fonts-ubuntu fonts-hack picom git curl wget unzip btop lm-sensors rofi nano xclip
   fi
 
   systemctl enable lightdm || true
@@ -132,7 +143,7 @@ fi
 # ============
 if [[ "$INSTALL_CELESTIAL" -eq 1 && -n "${SUDO_USER:-}" ]]; then
   CU="$SUDO_USER"; CUHOME="$(getent passwd "$CU" | cut -d: -f6)"
-  apt-get install -y --no-install-recommends git sassc gtk2-engines-murrine
+  apt-get install -y --no-install-recommends gtk2-engines-murrine gtk2-engines-pixbuf
   su - "$CU" -c "git clone --depth=1 https://github.com/zquestz/celestial-gtk-theme \"$CUHOME/celestial-gtk-theme\" || true"
   su - "$CU" -c "cd \"$CUHOME/celestial-gtk-theme\" && ./install.sh"  # installs to ~/.themes by default
 fi
