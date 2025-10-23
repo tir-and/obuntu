@@ -20,7 +20,8 @@ stalonetray -c "$HOME/.config/stalonetrayrc" &
 (sleep 0.7; xdotool search --name stalonetray windowunmap) &
 
 # ---- Eww vertical bar ----
-"$HOME/.config/eww/obuntu/start.sh" &
+command -v eww >/dev/null 2>&1 && "$HOME/.config/eww/obuntu/start.sh" &
+
 
 # ---- Wallpaper (optional) ----
 if [ -f /usr/share/backgrounds/obuntu.png ]; then
