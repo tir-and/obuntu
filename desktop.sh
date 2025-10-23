@@ -48,8 +48,8 @@ apt-get install -y --no-install-recommends \
   network-manager network-manager-gnome \
   feh neofetch gnome-disk-utility \
   git xsettingsd \
-  fonts-ubuntu fonts-noto-color-emoji \
-  fonts-hack-ttf fonts-font-awesome curl
+  fonts-ubuntu-sans fonts-noto-color-emoji \
+  fonts-hack-ttf fonts-font-awesome curl scrot
 
 # --- Enable display manager and switch networking to NetworkManager ---
 systemctl enable lightdm
