@@ -131,6 +131,12 @@ fi
   # Merge .config directory
   rsync -a "configs/.config/" "$USER_HOME/.config/"
 
+    # ---- Tilda configuration ----
+  if [[ -f "configs/.config/tilda/config_0" ]]; then
+    echo "[*] Installing Tilda config..."
+    install -D -m 0644 "configs/.config/tilda/config_0" "$USER_HOME/.config/tilda/config_0"
+  fi
+
   # stalonetray config (you ship configs/stalonetrayrc)
   if [[ -f "configs/stalonetrayrc" ]]; then
     install -D -m 0644 "configs/stalonetrayrc" "$USER_HOME/.config/stalonetrayrc"
