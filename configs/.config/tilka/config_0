@@ -1,0 +1,34 @@
+# ==== Obuntu Tilda Configuration ====
+
+# --- General ---
+font=Hack 12
+word_chars=-A-Za-z0-9,./?%&#:_=+@~
+use_image=false
+background_color=2f343f
+text_color=d3dae3
+cursor_blink=true
+cursor_color=5294e2
+transparency=0.08
+scrollback_lines=10000
+scrollbar=false
+scroll_on_output=false
+scroll_on_key=true
+show_title=false
+always_on_top=false
+start_fullscreen=false
+start_maximized=false
+command=/bin/bash
+use_custom_command=false
+key=F12
+title=Tilda
+enable_transparency=true
+background_saturation=0.90
+use_pango=true
+hide_on_lose_focus=false
+set_as_dock=false
+
+# --- Keybindings (Ctrl+Shift+C/V like XTerm) ---
+copy_key=3
+copy_mod=4
+paste_key=22
+paste_mod=4
