@@ -1,28 +1,29 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-
 LOG="/var/log/obuntu-base.log"
 mkdir -p "$(dirname "$LOG")" && touch "$LOG"
 exec > >(tee -a "$LOG") 2>&1
 
+trap 'echo "[!] obuntu-base failed on line $LINENO (see $LOG)"' ERR
+
 echo "[*] Obuntu base setup starting..."
 
-require_root() {
-  if [[ $EUID -ne 0 ]]; then
-    echo "Please run as root: sudo $0"; exit 1
-  fi
-}
-require_root
+# --- Root check ---
+if [[ $EUID -ne 0 ]]; then
+  echo "Please run as root: sudo $0"
+  exit 1
+fi
 
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
 apt-get install -y --no-install-recommends \
-  ca-certificates curl wget gnupg lsb-release vim-tiny net-tools \
-  rsyslog openssh-client
+  ca-certificates curl wget gnupg lsb-release \
+  vim-tiny net-tools rsyslog openssh-client rsync
 
-# start rsyslog
+# Start & enable rsyslog early so subsequent logs get captured
+systemctl enable rsyslog
 systemctl start rsyslog
 
 # Enforce lean installs
@@ -45,12 +46,9 @@ Pin: release *
 Pin-Priority: -10
 EOF
 
-# journald is part of systemd; keep it, but enable rsyslog (your preference)
-systemctl enable rsyslog
-
-# Optional: basic QoL
+# Optional: basic QoL (don’t fail if unavailable)
 if ! command -v btop >/dev/null 2>&1; then
-  apt-get install -y --no-install-recommends btop
+  apt-get install -y --no-install-recommends btop || true
 fi
 
 # Clean
