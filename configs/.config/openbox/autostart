@@ -16,7 +16,7 @@ nm-applet &
 plank &   # or plank-reloaded; config path is the same
 
 # ---- System tray: start, then hide; toggle via ~/.local/bin/system_tray.sh ----
-stalonetray &
+stalonetray -c "$HOME/.config/stalonetrayrc" &
 (sleep 0.7; xdotool search --name stalonetray windowunmap) &
 
 # ---- Eww vertical bar ----
