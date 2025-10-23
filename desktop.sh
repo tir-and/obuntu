@@ -137,6 +137,21 @@ fi
     install -D -m 0644 "configs/.config/tilda/config_0" "$USER_HOME/.config/tilda/config_0"
   fi
 
+  # --- .xinitrc for manual startx sessions ---
+if [[ -f "configs/.xinitrc" ]]; then
+  echo "[*] Installing .xinitrc for ${INVOKER} ..."
+  install -m 0644 "configs/.xinitrc" "$USER_HOME/.xinitrc"
+  # (optional) make it executable; not required by startx
+  chmod 0644 "$USER_HOME/.xinitrc" 2>/dev/null || true
+fi
+
+# --- Openbox env overrides (optional file) ---
+if [[ -f "configs/.config/openbox/environment" ]]; then
+  install -D -m 0644 "configs/.config/openbox/environment" \
+    "$USER_HOME/.config/openbox/environment"
+fi
+
+
   # stalonetray config (you ship configs/stalonetrayrc)
   if [[ -f "configs/stalonetrayrc" ]]; then
     install -D -m 0644 "configs/stalonetrayrc" "$USER_HOME/.config/stalonetrayrc"
