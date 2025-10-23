@@ -1,0 +1,4 @@
+# ==== Obuntu Openbox Environment Overrides ====
+GTK_THEME=Celestial:dark
+QT_QPA_PLATFORMTHEME=gtk2
+# Add WM-specific toggles/paths here if needed in future.
