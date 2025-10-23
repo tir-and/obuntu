@@ -1,1 +1,5 @@
+# ==== Obuntu System Environment ====
 GTK_THEME=Celestial:dark
+XDG_CURRENT_DESKTOP=Openbox
+EDITOR=vim
+QT_QPA_PLATFORMTHEME=gtk2
