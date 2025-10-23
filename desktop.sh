@@ -121,6 +121,13 @@ if [[ -n "$USER_HOME" && -d "$USER_HOME" && -d "configs" ]]; then
     install -m 0644 "configs/.Xresources" "$USER_HOME/.Xresources"
   fi
 
+  # Symlink .Xdefaults (and host-specific variant) to .Xresources to avoid drift
+if [[ -n "$USER_HOME" && -f "$USER_HOME/.Xresources" ]]; then
+  ln -sf ".Xresources" "$USER_HOME/.Xdefaults"
+  ln -sf ".Xresources" "$USER_HOME/.Xdefaults-$(hostname -s)"
+  chown "$INVOKER:$INVOKER" "$USER_HOME/.Xdefaults" "$USER_HOME/.Xdefaults-$(hostname -s)" 2>/dev/null || true
+fi
+
   # Merge .config directory
   rsync -a "configs/.config/" "$USER_HOME/.config/"
 
