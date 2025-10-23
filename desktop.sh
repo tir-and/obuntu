@@ -80,9 +80,6 @@ if [[ ! -d "$THEME_DIR/Celestial" ]]; then
   rm -rf "$tmpdir"
 fi
 
-# --- FONTS: Ubuntu repo fonts + Hack Nerd Font from official ZIP ---
-echo "[*] Installing fonts from Ubuntu repositories ..."
-# (already installed above in apt block)
 
 # Install Hack Nerd Font for Nerd glyphs (eww/rofi/nnn icons)
 HACK_NERD_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip"
@@ -116,6 +113,12 @@ if [[ -n "$USER_HOME" && -d "$USER_HOME" && -d "configs" ]]; then
   # Top-level dotfiles (e.g., .profile) — don't clobber if user already has one
   if [[ -f "configs/.profile" && ! -f "$USER_HOME/.profile" ]]; then
     install -m 0644 "configs/.profile" "$USER_HOME/.profile"
+  fi
+
+  # Copy .Xresources (XTerm/URxvt theme)
+  if [[ -f "configs/.Xresources" ]]; then
+    echo "[*] Installing .Xresources for ${INVOKER} ..."
+    install -m 0644 "configs/.Xresources" "$USER_HOME/.Xresources"
   fi
 
   # Merge .config directory
