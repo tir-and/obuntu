@@ -36,7 +36,7 @@ fi
 
 # Desktop packages (no lxappearance, your exact stack)
 apt-get install -y --no-install-recommends \
-  xorg xinit lightdm lightdm-gtk-greeter \
+  xorg xinit lightdm lightdm-gtk-greeter xdotool x11-utils xdo \
   openbox obconf rofi picom dunst stalonetray \
   plank-reloaded \
   xterm tilda \
