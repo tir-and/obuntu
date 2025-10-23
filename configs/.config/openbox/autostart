@@ -1,31 +1,38 @@
+# ---- Helpers ----
+run() { command -v "$1" >/dev/null 2>&1 && "$@" & }
+
+# Ensure session bus vars are exported to child apps (nm-applet, etc.)
+command -v dbus-update-activation-environment >/dev/null 2>&1 && \
+  dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_RUNTIME_DIR DBUS_SESSION_BUS_ADDRESS
+
 # ---- Environment ----
 export GTK_THEME=Celestial:dark
 
 # ---- X settings (GTK theme, fonts, icons) ----
-xsettingsd &
+run xsettingsd
 
 # ---- Compositor & notifications ----
-picom --config "$HOME/.config/picom/picom.conf" &
-dunst &
+run picom --config "$HOME/.config/picom/picom.conf"
+run dunst
 
-# ---- Network & (optional) Bluetooth applets ----
-nm-applet &
-# blueman-applet &   # uncomment if you install blueman
+# ---- Authentication agent for mounts (PCManFM/udisks2) ----
+# requires: policykit-1-gnome
+run /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# ---- Network applet ----
+run nm-applet
 
 # ---- Dock ----
-plank &   # or plank-reloaded; config path is the same
+run plank  # (plank-reloaded uses the same binary)
 
 # ---- System tray: start, then hide; toggle via ~/.local/bin/system_tray.sh ----
-stalonetray -c "$HOME/.config/stalonetrayrc" &
-(sleep 0.7; xdotool search --name stalonetray windowunmap) &
+if command -v stalonetray >/dev/null 2>&1; then
+  stalonetray -c "$HOME/.config/stalonetrayrc" &
+  ( sleep 0.7; xdotool search --class stalonetray windowunmap ) &
+fi
 
 # ---- Eww vertical bar ----
 command -v eww >/dev/null 2>&1 && "$HOME/.config/eww/obuntu/start.sh" &
 
-
 # ---- Wallpaper (optional) ----
-if [ -f /usr/share/backgrounds/obuntu.png ]; then
-  feh --bg-scale /usr/share/backgrounds/obuntu.png
-fi
-
-# ---- Anything else you want to auto-launch goes below ----
+[ -f /usr/share/backgrounds/obuntu.png ] && feh --bg-scale /usr/share/backgrounds/obuntu.png &
