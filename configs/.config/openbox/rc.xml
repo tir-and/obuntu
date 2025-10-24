@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_config xmlns="http://openbox.org/3.4/rc" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <!-- THEME: needs an Openbox theme named Arc-Dark installed; else fallback -->
+  <theme>
+    <name>Arc-Dark</name> <!-- Fallback idea: Onyx -->
+    <titleLayout>NLIMC</titleLayout>
+    <keepBorder>yes</keepBorder>
+    <animateIconify>yes</animateIconify>
+
+    <font place="ActiveWindow"><name>Ubuntu Sans</name><size>11</size><weight>Bold</weight><slant>Normal</slant></font>
+    <font place="InactiveWindow"><name>Ubuntu Sans</name><size>11</size><weight>Normal</weight><slant>Normal</slant></font>
+    <font place="MenuHeader"><name>Ubuntu Sans</name><size>11</size><weight>Normal</weight><slant>Normal</slant></font>
+    <font place="MenuItem"><name>Ubuntu Sans</name><size>12</size><weight>Normal</weight><slant>Normal</slant></font>
+  </theme>
+
+  <!-- Leave space for vertical eww on the left (48px bar + padding) -->
+  <margins>
+    <top>0</top><bottom>0</bottom><left>56</left><right>0</right>
+  </margins>
+
+  <!-- WORKSPACES -->
+  <desktops>
+    <number>4</number>
+    <names><name>1</name><name>2</name><name>3</name><name>4</name></names>
+    <popupTime>200</popupTime>
+  </desktops>
+
+  <!-- FOCUS / PLACEMENT -->
+  <focus>
+    <focusNew>yes</focusNew>
+    <followMouse>no</followMouse>
+    <focusLast>yes</focusLast>
+    <underMouse>no</underMouse>
+    <raiseOnFocus>no</raiseOnFocus>
+  </focus>
+  <placement><policy>Smart</policy><center>yes</center></placement>
+  <resize><popupShow>Nonpixel</popupShow></resize>
+
+  <!-- KEYBOARD -->
+  <keyboard>
+    <!-- Desktop navigation (no wrap) -->
+    <keybind key="C-W-Left"><action name="DesktopPrevious"><wrap>no</wrap></action></keybind>
+    <keybind key="C-W-Right"><action name="DesktopNext"><wrap>no</wrap></action></keybind>
+
+    <!-- Window cycle -->
+    <keybind key="A-Tab"><action name="NextWindow"/></keybind>
+
+    <!-- Close / Fullscreen -->
+    <keybind key="A-F4"><action name="Close"/></keybind>
+    <keybind key="W-F"><action name="ToggleFullscreen"/></keybind>
+
+    <!-- Launchers -->
+    <keybind key="W-Return"><action name="Execute"><command>xterm</command></action></keybind>
+    <keybind key="W-T"><action name="Execute"><command>tilda</command></action></keybind>
+    <keybind key="W-R"><action name="Execute"><command>rofi -show drun</command></action></keybind>
+    <keybind key="W-Y"><action name="Execute"><command>~/.local/bin/system_tray.sh</command></action></keybind>
+    <keybind key="Print">
+      <action name="Execute">
+        <!-- Option A (installed): flameshot gui -->
+        <!--command>flameshot gui</command-->
+        <!-- Option B (if you add scrot): -->
+        <!--command>scrot -s -q 100 ~/screenshot_%Y-%m-%d_%H-%M-%S.png</command-->
+        <!-- Option C (fallback): run nnn in xterm -->
+        <command>scrot -s -q 100 ~/screenshot_%Y-%m-%d_%H-%M-%S.png</command>
+      </action>
+    </keybind>
+
+    <!-- Half-screen snap -->
+    <keybind key="W-Left">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo"><x>0</x><y>0</y><width>50%</width><height>100%</height></action>
+    </keybind>
+    <keybind key="W-Right">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo"><x>50%</x><y>0</y><width>50%</width><height>100%</height></action>
+    </keybind>
+
+    <!-- Quadrants -->
+    <keybind key="W-Up">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo"><x>0</x><y>0</y><width>50%</width><height>50%</height></action>
+    </keybind>
+    <keybind key="W-Down">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo"><x>50%</x><y>50%</y><width>50%</width><height>50%</height></action>
+    </keybind>
+    <keybind key="W-Prior"> <!-- PageUp: top-right -->
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo"><x>50%</x><y>0</y><width>50%</width><height>50%</height></action>
+    </keybind>
+    <keybind key="W-Next"> <!-- PageDown: bottom-left -->
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo"><x>0</x><y>50%</y><width>50%</width><height>50%</height></action>
+    </keybind>
+
+    <!-- Menu / Reconfigure -->
+    <keybind key="W-space"><action name="ShowMenu"><menu>root-menu</menu></action></keybind>
+    <keybind key="W-C-r"><action name="Reconfigure"/></keybind>
+  </keyboard>
+
+  <!-- MOUSE (kept simple & valid; removed unsupported conditional blocks) -->
+  <mouse>
+    <dragThreshold>3</dragThreshold>
+    <doubleClickTime>400</doubleClickTime>
+    <screenEdgeWarpTime>0</screenEdgeWarpTime>
+    <screenEdgeWarpMouse>false</screenEdgeWarpMouse>
+
+    <context name="Frame">
+      <mousebind button="A-Left" action="Drag"><action name="Move"/></mousebind>
+      <mousebind button="A-Right" action="Drag"><action name="Resize"/></mousebind>
+      <mousebind button="Middle" action="Press"><action name="Lower"/><action name="FocusToBottom"/><action name="Unfocus"/></mousebind>
+    </context>
+
+    <context name="Titlebar">
+      <mousebind button="Left" action="Drag"><action name="Move"/></mousebind>
+      <mousebind button="Left" action="DoubleClick"><action name="ToggleMaximize"/></mousebind>
+      <mousebind button="Up" action="Click"><action name="Shade"/></mousebind>
+      <mousebind button="Down" action="Click"><action name="Unshade"/></mousebind>
+    </context>
+
+    <context name="Titlebar Top Right Bottom Left TLCorner TRCorner BRCorner BLCorner">
+      <mousebind button="Right" action="Press"><action name="ShowMenu"><menu>client-menu</menu></action></mousebind>
+    </context>
+
+    <context name="Top"><mousebind button="Left" action="Drag"><action name="Resize"><edge>top</edge></action></mousebind></context>
+    <context name="Left"><mousebind button="Left" action="Drag"><action name="Resize"><edge>left</edge></action></mousebind></context>
+    <context name="Right"><mousebind button="Left" action="Drag"><action name="Resize"><edge>right</edge></action></mousebind></context>
+    <context name="Bottom">
+      <mousebind button="Left" action="Drag"><action name="Resize"><edge>bottom</edge></action></mousebind>
+      <mousebind button="Right" action="Press"><action name="ShowMenu"><menu>client-menu</menu></action></mousebind>
+    </context>
+
+    <context name="Client">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+      <mousebind button="Middle" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+      <mousebind button="Right" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+    </context>
+
+    <context name="Desktop">
+      <mousebind button="Up" action="Click"><action name="GoToDesktop"><to>previous</to><wrap>no</wrap></action></mousebind>
+      <mousebind button="Down" action="Click"><action name="GoToDesktop"><to>next</to><wrap>no</wrap></action></mousebind>
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+    </context>
+
+    <context name="Root">
+      <mousebind button="Middle" action="Press"><action name="ShowMenu"><menu>client-list-combined-menu</menu></action></mousebind>
+      <mousebind button="Right" action="Press"><action name="ShowMenu"><menu>root-menu</menu></action></mousebind>
+    </context>
+
+    <context name="Shade"><mousebind button="Left" action="Click"><action name="ToggleShade"/></mousebind></context>
+    <context name="Maximize">
+      <mousebind button="Left" action="Click"><action name="ToggleMaximize"/></mousebind>
+      <mousebind button="Middle" action="Click"><action name="ToggleMaximize"><direction>vertical</direction></action></mousebind>
+      <mousebind button="Right" action="Click"><action name="ToggleMaximize"><direction>horizontal</direction></action></mousebind>
+    </context>
+    <context name="Close"><mousebind button="Left" action="Click"><action name="Close"/></mousebind></context>
+  </mouse>
+
+  <!-- MENUS -->
+  <menu>
+    <file>menu.xml</file>
+    <applicationIcons>no</applicationIcons>
+  </menu>
+
+  <!-- APPLICATION RULES -->
+  <applications>
+    <!-- Keep Tilda above, undecorated -->
+    <application name="tilda">
+      <decor>no</decor>
+      <skip_pager>yes</skip_pager>
+      <skip_taskbar>yes</skip_taskbar>
+      <layer>above</layer>
+    </application>
+    <!-- Tray windows should stay docked -->
+    <application class="stalonetray">
+      <skip_taskbar>yes</skip_taskbar>
+      <skip_pager>yes</skip_pager>
+      <layer>dock</layer>
+    </application>
+  </applications>
+
+</openbox_config>
