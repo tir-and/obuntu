@@ -48,5 +48,5 @@ All installs use --no-install-recommends to keep things lean.
 What gets removed / blocked  
 Removed: cloud-init, unattended-upgrades, update-notifier-common, snapd,  
 rsyslog, apport, whoopsie, network-manager, avahi-daemon, cups*,  
-bluez, blueman, modemmanager (and chrony if USE_TIMESYNCD=1).  
+modemmanager (and chrony if USE_TIMESYNCD=1).  
 Held (blocked from re-install): snapd, apport, whoopsie, cloud-init, avahi-daemon.  
